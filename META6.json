@@ -1,0 +1,25 @@
+{
+  "auth": "zef:tbrowder",
+  "authors": [
+    "Tom Browder"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
+  "description": "Provides routines and a program to combine and title PDF documents",
+  "license": "Artistic-2.0",
+  "name": "PDF::Combiner",
+  "perl": "6.d",
+  "provides": {
+    "PDF::Combiner": "lib/PDF/Combiner.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "",
+  "tags": [
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.1"
+}
