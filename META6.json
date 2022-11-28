@@ -6,13 +6,17 @@
   "build-depends": [
   ],
   "depends": [
+    "Text::Utils",
+    "PDF::Lite",
+    "Pod::To::PDF::Lite"
   ],
   "description": "Provides routines and a program to combine and title PDF documents",
   "license": "Artistic-2.0",
   "name": "PDF::Combiner",
   "perl": "6.d",
   "provides": {
-    "PDF::Combiner": "lib/PDF/Combiner.rakumod"
+    "PDF::Combiner": "lib/PDF/Combiner.rakumod",
+    "PDF::Subs": "lib/PDF/Subs.rakumod"
   },
   "resources": [
   ],
