@@ -17,7 +17,6 @@ my $margin  = 1 * 72; # inches => PS points
 my Paper $paper  = Letter;
 my $page-numbers = False;
 
-
 my @pdfs-in;
 @pdfs-in = <
     pdf-docs/Creating-a-Cro-App-Part1-by-Tony-O.pdf
