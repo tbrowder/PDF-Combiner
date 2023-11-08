@@ -9,6 +9,8 @@ class Config is export {
 
     has $.numbers   = False;
     has $.two-sided = False;
+    has $.back      = False;
+
     has $.margins   = 1 * 72;
     has $.paper     = "Letter";
     has $.outfile;
@@ -21,7 +23,9 @@ class Config is export {
 
     # much hackery
     method set-two-sided-true { $!two-sided = True }
-    method set-numbers-true { $!numbers = True }
+    method set-numbers-true   { $!numbers   = True }
+    method set-back-true      { $!back      = True }
+
 
     # paper info
     method set-option($opt, $val is copy) {
@@ -135,6 +139,10 @@ sub read-config-file($fnam, :$debug --> Config) is export {
             }
             elsif $val eq '=numbers' {
                 $c.set-numbers-true;
+                next LINE;
+            }
+            elsif $val eq '=back' {
+                $c.set-back-true;
                 next LINE;
             }
             # end hackery

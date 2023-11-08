@@ -49,6 +49,8 @@ multi sub run-cli() is export {
         =end title
         =two-sided Bool [explicit 'true' or 'false' OR, with no value:
                      True if present, False if not]
+        =back      Bool [explicit 'true' or 'false' OR, with no value:
+                     True if present, False if not]
         =outfile   file name of the new document
         =paper     'Letter' or 'A4' [default: Letter]
         =margins   size in PostScript points [default: 72 (one inch)]
@@ -63,8 +65,10 @@ multi sub run-cli(@args) is export {
     # run all from here while calling into PDF::Combiner::Subs
     my $debug = 0;
     my Config $c;
-    #my $IFIL = "example-project/our-israel-trip.txt"; # default config file for debugging;
-    my $IFIL = "/home/tbrowde/mydata/tbrowde-home/israel-trip-1980/our-israel-trip.txt"; # default config file for debugging;
+    # default config file for debugging;
+    #my $IFIL = "example-project/our-israel-trip.txt";
+    my $IFIL = "/home/tbrowde/mydata/tbrowde-home/israel-trip-1980/our-israel-trip.txt"; 
+
     my $ifil;
     for @args {
         when /^:i d/ {
@@ -123,6 +127,7 @@ multi sub run-cli(@args) is export {
 
     my $has-cover = False;
     my $two-sided = $c.two-sided;
+    my $has-back  = $c.back;
     if @tlines.elems {
         $has-cover = True;
         # add a cover for the collection
@@ -162,6 +167,12 @@ multi sub run-cli(@args) is export {
         }
     }
 
+    if $has-back {
+        # add a single blank page
+        $page = $pdf.add-page;
+        # note the $tot-pages number has NOT been affected
+    }
+
     if $c.numbers {
         say "Page numbers being added";
         # note we vary position of the number depending
@@ -190,7 +201,7 @@ multi sub run-cli(@args) is export {
                     # odd numbers on facing pages (obverse) are bottom right
                     #   (or none on front cover)
                     # even numbers on back side (reverse) are bottom left
-                    @position = 0 + $c.margins, $c.margins - $font-size; #$gfx.width - $c.margins, $c.margins - $font-size;
+                    @position = 0 + $c.margins, $c.margins - $font-size; 
                     $gfx.print: $text, :@position, :$font, :$font-size, :align<left>;
                 }
                 else {
