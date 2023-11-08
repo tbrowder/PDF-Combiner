@@ -7,7 +7,7 @@ use Text::Utils :strip-comment, :normalize-string;
 class Config is export {
     has @.pdfs;
 
-    has $.numbers = False;
+    has Bool $.numbers = False;
     has $.margins = 1 * 72;
     has $.paper = "Letter";
     has $.outfile;
@@ -21,7 +21,7 @@ class Config is export {
     method set-option($opt, $val is copy) {
         with $opt {
             when /:i numbers / {
-                $!numbers = $val 
+                $!numbers = True
             }
             when /:i margins / {
                 $!margins = $val 

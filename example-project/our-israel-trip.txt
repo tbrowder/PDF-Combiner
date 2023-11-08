@@ -13,7 +13,8 @@ Our Trip to the Holy Land
 January 1980   
 =end title
 
-=paper Letter # or 'A4', NOT case-sensitive; default: Letter
+=paper A4     # or 'Letter', NOT case-sensitive; default: Letter
+
 =margins 72   # PostScript points; default: 72 (1 inch)
 
 # a comment line followed by a blank line

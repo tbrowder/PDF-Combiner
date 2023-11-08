@@ -18,4 +18,11 @@ my $t2 = "January 1980";
 is $c.title.head, $t0, "title first line";
 is $c.title[1], $t1, "title second line";
 is $c.title.tail, $t2, "title last line";
+
+is $c.paper, "A4";
+is $c.margins, 72;
+is $c.numbers, True;
+is $c.outfile, "trip-to-israel.pdf",
+
 done-testing;
+
