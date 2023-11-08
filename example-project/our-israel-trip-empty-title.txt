@@ -1,0 +1,28 @@
+# option names must end with a colon as shown below
+# option names are NOT case-sensitive
+
+=outfile trip-to-israel.pdf               # case-sensitive
+=two-sided true # or 'false'; default: False
+
+# options for the title page
+# page numbers desired?
+=numbers true  # or 'false', NOT case-sensitive; default: False
+
+=begin title # contents case sensitive, blank lines respected
+#Our Trip to the Holy Land
+#
+#January 1980
+=end title
+
+=paper A4     # or 'Letter', NOT case-sensitive; default: Letter
+
+=margins 72   # PostScript points; default: 72 (1 inch)
+
+# a comment line followed by a blank line
+
+
+# exact PDF input file names, should end in '.pdf'
+# if not, results are not guaranteed until tests
+# are added
+p01.pdf # case-sensitive, order significant
+p02.pdf
