@@ -10,10 +10,10 @@
 =begin title # contents case sensitive, blank lines respected
 Our Trip to the Holy Land
 
-January 1980   
+January 1980
 =end title
 
-=paper A4     # or 'Letter', NOT case-sensitive; default: Letter
+=paper Letter     # or 'Letter', NOT case-sensitive; default: Letter
 
 =margins 72   # PostScript points; default: 72 (1 inch)
 

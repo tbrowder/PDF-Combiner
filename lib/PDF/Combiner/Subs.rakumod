@@ -7,9 +7,10 @@ use Text::Utils :strip-comment, :normalize-string;
 class Config is export {
     has @.pdfs;
 
-    has $.numbers = False;
-    has $.margins = 1 * 72;
-    has $.paper = "Letter";
+    has $.numbers   = False;
+    has $.two-sided = False;
+    has $.margins   = 1 * 72;
+    has $.paper     = "Letter";
     has $.outfile;
     has @.title;
 
@@ -18,19 +19,33 @@ class Config is export {
     has $.subtitle-font;
     has $.subtitle-font-size;
 
+    # much hackery
+    method set-two-sided-true { $!two-sided = True }
+    method set-numbers-true { $!numbers = True }
+
+    # paper info
     method set-option($opt, $val is copy) {
         with $opt {
             when /:i numbers / {
-                $!numbers = True
+                my $res = $val.defined ?? ($val ~~ /:i true/) ?? True
+                                                              !! False
+                                       !! False;
+                $!numbers = $res
+            }
+            when /:i 'two-sided' / {
+                my $res = $val.defined ?? ($val ~~ /:i true/) ?? True
+                                                              !! False
+                                       !! False;
+                $!two-sided = $res
             }
             when /:i margins / {
-                $!margins = $val 
+                $!margins = $val
             }
             when /:i paper / {
-                $!paper = $val 
+                $!paper = $val
             }
             when /:i outfile / {
-                $!outfile = $val 
+                $!outfile = $val
             }
         }
     }
@@ -42,31 +57,32 @@ class Config is export {
     }
 }
 
-=begin comment
 # add a cover for the collection
-my PDF::Lite::Page $page = $pdf.add-page;
-my $font  = $pdf.core-font(:family<Times-RomanBold>);
-my $font2 = $pdf.core-font(:family<Times-Roman>);
-# make this a sub: sub make-cover-page(PDF::Lite::Page $page, |c) is export
-sub make-cover-page(PDF::Lite::Page $page, :$font, :$font2, :$debug) is export {
+sub make-cover-page(PDF::Lite::Page $page,
+             Config :$config,
+                    :$font,
+                    :$font2,
+                    :$centerx,
+                    :$debug
+                   ) is export {
     $page.text: -> $txt {      # $txt is a child of the $page
         my ($text, $baseline);
 
         $baseline = 7*72;
         $txt.font = $font, 16;
-        $text = $new-title;
+        $text = $config.title.head; # $new-title;
 
         $txt.text-position = 0, $baseline; # baseline height is determined here
         # output aligned text
         $txt.say: $text, :align<center>, :position[$centerx];
 
         $txt.font = $font2, 14;
-        $baseline -= 60;
-        $txt.text-position = 0, $baseline; # baseline height is determined here
-        $txt.say: "by", :align<center>, :position[$centerx];
+        #$baseline -= 60;
+        #$txt.text-position = 0, $baseline; # baseline height is determined here
+        #$txt.say: "by", :align<center>, :position[$centerx];
 
         $baseline -= 30;
-        my @text = "Tony O'Dell", "2022-09-23", "[https://deathbykeystroke.com]";
+        my @text = $config.title[1..*]; #"Tony O'Dell", "2022-09-23", "[https://deathbykeystroke.com]";
         for @text -> $text {
             $baseline -= 20;
             $txt.text-position = 0, $baseline; # baseline height is determined here
@@ -74,7 +90,6 @@ sub make-cover-page(PDF::Lite::Page $page, :$font, :$font2, :$debug) is export {
         }
     }
 }
-=end comment
 
 sub select-font() {
 }
@@ -96,11 +111,15 @@ sub read-config-file($fnam, :$debug --> Config) is export {
 
             if $opt ~~ /:i (begin|end) / {
                 my $select = ~$0;
-                $in-title = $select eq "begin" ?? True !! False; 
+                $in-title = $select eq "begin" ?? True !! False;
                 next LINE
             }
 
             $c.set-option: $opt, $val;
+            if $opt ~~ /'two-sided'/ {
+                note "DEBUG: found two-sided";
+                note "DEBUG: \$val = '$val'"
+            }
         }
         else {
             # file name or title line (which may be blank)
@@ -109,9 +128,20 @@ sub read-config-file($fnam, :$debug --> Config) is export {
                 $c.add-title-line: $val;
                 next LINE;
             }
-          
+            # hackery
+            if $val eq '=two-sided' {
+                $c.set-two-sided-true;
+                next LINE;
+            }
+            elsif $val eq '=numbers' {
+                $c.set-numbers-true;
+                next LINE;
+            }
+            # end hackery
             my $f = $val.words.head;
+            note "DEBUG: \$f = '$f'" if $debug;
             my $path = "$dir/$f";
+            note "DEBUG: \$path = '$path'" if $debug;
             unless $path.IO.f {
                 note "WARNING: File '$path' not found. Ignoring it.";
                 next LINE;
@@ -122,9 +152,10 @@ sub read-config-file($fnam, :$debug --> Config) is export {
     $c
 }
 
+=begin comment
 # from github/pod-to-pdf/Pod-To-PDF-Lite-raku/
 # method !paginate($pdf) {
-sub paginate($pdf, 
+sub paginate($pdf,
     :$margin!,
     :$number-first-page = False,
     :$count-first-page  = False,
@@ -135,7 +166,7 @@ sub paginate($pdf,
     my $font-size := 9;
     my $align := 'right';
     my $page-num = 0;
-    # modify page-count? 
+    # modify page-count?
     if not $count-first-page { # not usual in my book
         --$page-count;
         $number-first-page = False;
@@ -165,3 +196,4 @@ sub paginate($pdf,
         $page.finish;
     }
 }
+=end comment

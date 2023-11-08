@@ -18,7 +18,7 @@ DESCRIPTION
 
 **PDF::Combiner** is a simple but useful tool to combine PDF documents into a single PDF document.
 
-In the example above, **our-israel-tour.txt** is a simple formatted text file containing several types of lines. See the example project in `/example-project` for details of the file.
+In the example above, **our-israel-tour.txt** is a simple formatted text file containing several types of lines. See the example project `config` files in directory `/example-project` for details of the file.
 
 Note the PDF files are expected to be in the same directory as the project file. If that is a problem for your use case, please file an issue.
 
