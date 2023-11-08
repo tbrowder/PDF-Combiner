@@ -86,7 +86,7 @@ sub read-config-file($fnam, :$debug --> Config) is export {
     my $in-title = 0;
     LINE: for $fnam.IO.lines -> $line is copy {
         $line = strip-comment $line;
-        next if $line !~~ /\S/;
+        next if not $in-title and $line !~~ /\S/;
         if $line ~~ /\h* '='(\S+) \h+ (\N*) / {
             # =option value
             # =begin title
@@ -102,9 +102,9 @@ sub read-config-file($fnam, :$debug --> Config) is export {
 
             $c.set-option: $opt, $val;
         }
-        elsif $line ~~ / (\N+) / {
-            # file name or title line
-            my $val = normalize-string ~$0;
+        else {
+            # file name or title line (which may be blank)
+            my $val = normalize-string $line;
             if $in-title {
                 $c.add-title-line: $val;
                 next LINE;
@@ -117,9 +117,6 @@ sub read-config-file($fnam, :$debug --> Config) is export {
                 next LINE;
             }
             $c.add-file: $path;
-        }
-        else {
-            die "FATAL: Should not get here. Please file an issue.";
         }
     }
     $c
