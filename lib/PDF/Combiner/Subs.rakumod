@@ -7,7 +7,7 @@ use Text::Utils :strip-comment, :normalize-string;
 class Config is export {
     has @.pdfs;
 
-    has Bool $.numbers = False;
+    has $.numbers = False;
     has $.margins = 1 * 72;
     has $.paper = "Letter";
     has $.outfile;
