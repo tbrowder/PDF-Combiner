@@ -57,7 +57,6 @@ multi sub run-cli(@args) is export {
             say "FATAL: Unknown arg '$_'"; exit;
         }
     }
-
 }
 
 =finish
@@ -141,7 +140,6 @@ for @*ARGS {
 }
 
 my @pdf-objs;
-
 for @pdfs-in.kv -> $i, $pdf-in {
     my $pdf-obj = PDF::Lite.open: $pdf-in;
     @pdf-objs.push: $pdf-obj;
@@ -164,18 +162,15 @@ $page.text: -> $txt {
     my ($text, $baseline);
     $baseline = 7*72;
     $txt.font = $font, 16;
-
     $text = $new-title;
     $txt.text-position = 0, $baseline; # baseline height is determined here
     # output aligned text
     $txt.say: $text, :align<center>, :position[$centerx];
-
     $txt.font = $font2, 14;
     $baseline -= 60;
     $txt.text-position = 0, $baseline; # baseline height is determined here
     $txt.say: "by", :align<center>, :position[$centerx];
     $baseline -= 30;
-
     my @text = "Tony O'Dell", "2022-09-23", "[https://deathbykeystroke.com]";
     for @text -> $text {
         $baseline -= 20;

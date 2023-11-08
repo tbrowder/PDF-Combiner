@@ -43,7 +43,36 @@ class Config is export {
     }
 }
 
-sub make-cover-page(PDF::Lite::Page $page, $debug) is export {
+# add a cover for the collection
+my PDF::Lite::Page $page = $pdf.add-page;
+my $font  = $pdf.core-font(:family<Times-RomanBold>);
+my $font2 = $pdf.core-font(:family<Times-Roman>);
+# make this a sub: sub make-cover-page(PDF::Lite::Page $page, |c) is export
+sub make-cover-page(PDF::Lite::Page $page, :$font, :$font2, :$debug) is export {
+    $page.text: -> $txt {      # $txt is a child of the $page
+        my ($text, $baseline);
+
+        $baseline = 7*72;
+        $txt.font = $font, 16;
+        $text = $new-title;
+
+        $txt.text-position = 0, $baseline; # baseline height is determined here
+        # output aligned text
+        $txt.say: $text, :align<center>, :position[$centerx];
+
+        $txt.font = $font2, 14;
+        $baseline -= 60;
+        $txt.text-position = 0, $baseline; # baseline height is determined here
+        $txt.say: "by", :align<center>, :position[$centerx];
+
+        $baseline -= 30;
+        my @text = "Tony O'Dell", "2022-09-23", "[https://deathbykeystroke.com]";
+        for @text -> $text {
+            $baseline -= 20;
+            $txt.text-position = 0, $baseline; # baseline height is determined here
+            $txt.say: $text, :align<center>, :position[$centerx];
+        }
+    }
 }
 
 sub select-font() {
