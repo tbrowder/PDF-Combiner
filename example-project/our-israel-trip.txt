@@ -1,15 +1,20 @@
 # option names must end with a colon as shown below
 # option names are NOT case-sensitive
 
-outfile: trip-to-israel.pdf               # case-sensitive
+=outfile trip-to-israel.pdf               # case-sensitive
 
 # options for the title page
 # page numbers desired?
-numbers: true  # or 'false', NOT case-sensitive
+=numbers true  # or 'false', NOT case-sensitive
 
-title: Our Trip to Israel, January 1980   # case-sensitive
-paper: Letter # or 'A4', NOT case-sensitive; default: Letter
-margins: 72   # PostScript points; default: 72 (1 inch)
+=begin title # contents case sensitive, blank lines respected
+Our Trip to the Holy Land
+
+January 1980   
+=end title
+
+=paper Letter # or 'A4', NOT case-sensitive; default: Letter
+=margins 72   # PostScript points; default: 72 (1 inch)
 
 # a comment line followed by a blank line
 

@@ -2,7 +2,7 @@ unit module PDF::Subs;
 
 use PDF::Content;
 use PDF::Lite;
-use Text::Utils :strip-comment;
+use Text::Utils :strip-comment, :normalize-string;
 
 class Config is export {
     has @.pdfs;
@@ -11,9 +11,8 @@ class Config is export {
     has $.margins = 1 * 72;
     has $.paper = "Letter";
     has $.outfile;
-    has $.title;
+    has @.title;
 
-    has $.subtitle;
     has $.title-font;
     has $.title-font-size;
     has $.subtitle-font;
@@ -33,16 +32,17 @@ class Config is export {
             when /:i outfile / {
                 $!outfile = $val 
             }
-            when /^:i title / {
-                $!title = $val 
-            }
         }
     }
     method add-file($f) {
         @!pdfs.push: $f
     }
+    method add-title-line($s) {
+        @!title.push: $s
+    }
 }
 
+=begin comment
 # add a cover for the collection
 my PDF::Lite::Page $page = $pdf.add-page;
 my $font  = $pdf.core-font(:family<Times-RomanBold>);
@@ -74,6 +74,7 @@ sub make-cover-page(PDF::Lite::Page $page, :$font, :$font2, :$debug) is export {
         }
     }
 }
+=end comment
 
 sub select-font() {
 }
@@ -82,18 +83,34 @@ sub read-config-file($fnam, :$debug --> Config) is export {
     my $c = Config.new;
 
     my $dir = $fnam.IO.parent;
+    my $in-title = 0;
     LINE: for $fnam.IO.lines -> $line is copy {
         $line = strip-comment $line;
         next if $line !~~ /\S/;
-        if $line ~~ /\h* (\S+) \h* ':' (\N*) / {
-            # option : value
+        if $line ~~ /\h* '='(\S+) \h+ (\N*) / {
+            # =option value
+            # =begin title
+            # =end title
             my $opt = ~$0.lc;
-            my $val = ~$1;
+            my $val = normalize-string ~$1;
+
+            if $opt ~~ /:i (begin|end) / {
+                my $select = ~$0;
+                $in-title = $select eq "begin" ?? True !! False; 
+                next LINE
+            }
+
             $c.set-option: $opt, $val;
         }
-        elsif $line ~~ / (\S+) / {
-            # file name
-            my $f = ~$0;
+        elsif $line ~~ / (\N+) / {
+            # file name or title line
+            my $val = normalize-string ~$0;
+            if $in-title {
+                $c.add-title-line: $val;
+                next LINE;
+            }
+          
+            my $f = $val.words.head;
             my $path = "$dir/$f";
             unless $path.IO.f {
                 note "WARNING: File '$path' not found. Ignoring it.";
