@@ -5,16 +5,28 @@
 B<PDF::Combiner> - Provides routines and a program to combine and title PDF documents
 
 =head1 SYNOPSIS
-
 =begin code :lang<raku>
-
 use PDF::Combiner;
-
+combine-pdfs config=our-israel-tour.txt
 =end code
 
 =head1 DESCRIPTION
 
-B<PDF::Combiner> is ...
+B<PDF::Combiner> is a simple but useful tool to combine PDF documents
+into a single PDF document.
+
+In the example above, B<our-israel-tour.txt> is a simple formatted
+text file containing several types of lines. See the example project
+in C</example-project> fpr details of the file.
+
+Note the PDF files are expected to be in the same directory as
+the project file.
+
+=head1 CREDITS
+
+Thanks to prolific Raku module distribution author David Warring for
+his wonderful PDF project (L<https://github.com/pdf-raku>) and
+especially for his example of how to combine PDF files into one.
 
 =head1 AUTHOR
 
@@ -22,7 +34,7 @@ Tom Browder <tbrowder@acm.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-© 2022 Tom Browder
+© 2022-2023 Tom Browder
 
 This library is free software; you may redistribute it or modify it under the Artistic License 2.0.
 

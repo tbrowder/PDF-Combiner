@@ -8,7 +8,9 @@
   "depends": [
     "Text::Utils",
     "PDF::Lite",
-    "Pod::To::PDF::Lite"
+    "File::Find",
+    "PDF::Font::Loader",
+    "PDF::Content"
   ],
   "description": "Provides routines and a program to combine and title PDF documents",
   "license": "Artistic-2.0",
@@ -16,7 +18,7 @@
   "perl": "6.d",
   "provides": {
     "PDF::Combiner": "lib/PDF/Combiner.rakumod",
-    "PDF::Subs": "lib/PDF/Subs.rakumod"
+    "PDF::Combiner::Subs": "lib/PDF/Combiner/Subs.rakumod"
   },
   "resources": [
   ],
