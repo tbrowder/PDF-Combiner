@@ -20,20 +20,27 @@ multi sub run-cli() is export {
     Usage: {$*PROGRAM.basename} config=my-pdf-project.txt
 
     Args
-      config=X - where X is the name of a configuration file listing various
-                 options as well as a list of PDF documents to be combined,
-                 one name or option per line, comments and blank lines are
-                 ignored. See the 'example-project' directory for an example.
+        config=X - where X is the name of a configuration file listing various
+                   options as well as a list of PDF documents to be combined,
+                   one name or option per line, comments and blank lines are
+                   ignored. See the 'example-project' directory for an example.
 
     'config' file options when present in the file
-      numbers:   produces page numbers on each page
-                 except the cover which is number
-                 one but not shown; format:
-                 (bottom right of page: 'Page N of M')
+        =numbers   True or False [default: False]
 
-      title:     title on the cover page
-      outfile:   file name of the new document
-      paper:     Letter or A4
+                   produces page numbers on each page
+                   except the cover which is number
+                   one but not shown; format:
+                   (bottom right of page: 'Page N of M')
+
+        =begin title     
+                   title line for the cover page
+                   # a retained blank line for the cover page
+                   another title line for the cover page
+        =end title
+        =outfile   file name of the new document
+        =paper     'Letter' or 'A4' [default: Letter]
+        =margins   size in PostScript points [default: 72 (one inch)]
 
     Combines the input PDFs into one document
     HERE
