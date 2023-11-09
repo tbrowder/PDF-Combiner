@@ -13,34 +13,41 @@ class Config is export {
 
     has $.margins   = 1 * 72;
     has $.paper     = "Letter";
+
     has $.outfile;
     has @.title;
+    has @.preface;
+    has @.afterword;
 
     has $.title-font;
     has $.title-font-size;
     has $.subtitle-font;
     has $.subtitle-font-size;
 
-    # much hackery
-    method set-two-sided-true { $!two-sided = True }
-    method set-numbers-true   { $!numbers   = True }
-    method set-back-true      { $!back      = True }
-
-
     # paper info
-    method set-option($opt, $val is copy) {
+    method set-option($opt, $val) { # is copy) {
+        if not $val.defined {
+            die "FATAL: Unexpected undefined \$val";
+        }
+        sub return-bool($val --> Bool) {
+            my $res;
+            if $val ~~ Bool {
+                $res = $val
+            }
+            elsif $val ~~ Str {
+                $res = $val ~~ /:i true / ?? True !! False
+            }
+            $res
+        }
         with $opt {
             when /:i numbers / {
-                my $res = $val.defined ?? ($val ~~ /:i true/) ?? True
-                                                              !! False
-                                       !! False;
-                $!numbers = $res
+                $!numbers = return-bool $val
             }
             when /:i 'two-sided' / {
-                my $res = $val.defined ?? ($val ~~ /:i true/) ?? True
-                                                              !! False
-                                       !! False;
-                $!two-sided = $res
+                $!two-sided = return-bool $val
+            }
+            when /:i back / {
+                $!back = return-bool $val
             }
             when /:i margins / {
                 $!margins = $val
@@ -58,6 +65,9 @@ class Config is export {
     }
     method add-title-line($s) {
         @!title.push: $s
+    }
+    method add-preface-line($s) {
+        @!preface.push: $s
     }
 }
 
@@ -102,25 +112,45 @@ sub read-config-file($fnam, :$debug --> Config) is export {
     my $c = Config.new;
 
     my $dir = $fnam.IO.parent;
-    my $in-title = 0;
+    my $in-title    = False;
+    my $in-preface = False;
+
     LINE: for $fnam.IO.lines -> $line is copy {
         $line = strip-comment $line;
-        next if not $in-title and $line !~~ /\S/;
-        if $line ~~ /\h* '='(\S+) \h+ (\N*) / {
+        next if not ($in-title or $in-preface) and $line !~~ /\S/;
+
+        if $line ~~ /\h* '='(\S+) \h* $/ {
+            # a naked option
+            my $opt = ~$0.lc;
+            my $val = True;
+            $c.set-option: $opt, $val;
+            note "DEBUG: naked \$opt = '$opt'" if $debug;
+        }
+        elsif $line ~~ /\h* '='(\S+) \h+ (\N+) / {
             # =option value
-            # =begin title
-            # =end title
+            # =begin title | preface
+            # =end title | preface
             my $opt = ~$0.lc;
             my $val = normalize-string ~$1;
 
             if $opt ~~ /:i (begin|end) / {
-                my $select = ~$0;
-                $in-title = $select eq "begin" ?? True !! False;
+                my $select = ~$0.lc;
+                with $val {
+                    when /:i title/ {
+                        $in-title = $select eq "begin" ?? True !! False;
+                    }
+                    when /:i preface/ {
+                        $in-preface = $select eq "begin" ?? True !! False;
+                    }
+                    default {
+                        die "FATAL: Unexpected \$opt value '$_'";
+                    }
+                }
                 next LINE
             }
 
             $c.set-option: $opt, $val;
-            if $opt ~~ /'two-sided'/ {
+            if $debug and $opt ~~ /'two-sided'/ {
                 note "DEBUG: found two-sided";
                 note "DEBUG: \$val = '$val'"
             }
@@ -128,24 +158,16 @@ sub read-config-file($fnam, :$debug --> Config) is export {
         else {
             # file name or title line (which may be blank)
             my $val = normalize-string $line;
-            if $in-title {
+            note "DEBUG: \$val = '$val'";
+            if $in-title  {
                 $c.add-title-line: $val;
                 next LINE;
             }
-            # hackery
-            if $val eq '=two-sided' {
-                $c.set-two-sided-true;
+            elsif $in-preface {
+                $c.add-preface-line: $val;
                 next LINE;
             }
-            elsif $val eq '=numbers' {
-                $c.set-numbers-true;
-                next LINE;
-            }
-            elsif $val eq '=back' {
-                $c.set-back-true;
-                next LINE;
-            }
-            # end hackery
+
             my $f = $val.words.head;
             note "DEBUG: \$f = '$f'" if $debug;
             my $path = "$dir/$f";
@@ -157,51 +179,15 @@ sub read-config-file($fnam, :$debug --> Config) is export {
             $c.add-file: $path;
         }
     }
+
+    # sanity check
+    unless $c.pdfs.elems {
+        note "FATAL: No pdf files found in project directory '$dir'";
+        exit;
+    }
+
     $c
-}
+} # sub read-config-file($fnam, :$debug --> Config) is export {
 
-=begin comment
-# from github/pod-to-pdf/Pod-To-PDF-Lite-raku/
-# method !paginate($pdf) {
-sub paginate($pdf,
-    :$margin!,
-    :$number-first-page = False,
-    :$count-first-page  = False,
-    ) is export {
-
-    my $page-count = $pdf.Pages.page-count;
-    my $font = $pdf.core-font: "Helvetica";
-    my $font-size := 9;
-    my $align := 'right';
-    my $page-num = 0;
-    # modify page-count?
-    if not $count-first-page { # not usual in my book
-        --$page-count;
-        $number-first-page = False;
-    }
-
-    for $pdf.pages.iterate-pages -> $page {
-        my $first-page = True;
-        if $first-page {
-            $first-page = False;
-            next unless $count-first-page;
-            if not $number-first-page {
-                ++$page-num;
-                next;
-            }
-        }
-        ++$page-num;
-
-        my PDF::Content $gfx = $page.gfx;
-        # need some vertical whitespace here
-        my $vspace = 0.4 * $font-size;
-        #my @position = $gfx.width - $margin, $margin - $font-size;
-        my @position = $gfx.width - $margin, $margin - $font-size - $vspace;
-
-        #my $text = "Page {++$page-num} of $page-count";
-        my $text = "Page $page-num of $page-count";
-        $gfx.print: $text, :@position, :$font, :$font-size, :$align;
-        $page.finish;
-    }
-}
-=end comment
+sub report-status(Config $c, |c) is export {
+} # sub report-status(Config $c, |c) is export {

@@ -22,6 +22,6 @@ is $c.title.tail, $t2, "title last line";
 is $c.paper, "Letter";
 is $c.margins, 72;
 like $c.outfile, /'trip-to-israel.pdf'/;
-is $c.numbers, True;
+is $c.numbers, True, "expect numbers True";
 
 done-testing;
