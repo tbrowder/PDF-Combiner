@@ -170,7 +170,7 @@ multi sub run-cli(@args) is export {
     if $has-back {
         # add a single blank page
         $page = $pdf.add-page;
-        # note the $tot-pages number has NOT been affected
+        say "A single page, empty back cover added."
     }
 
     if $c.numbers {
@@ -186,10 +186,15 @@ multi sub run-cli(@args) is export {
             my $font-size := 9;
             my $align := 'right';
             my $page-num = 0;
+            --$page-count if $has-back;
 
             PAGE: for $pdf.Pages.iterate-pages -> $page {
                 ++$page-num;
                 next PAGE if $page-num == 1 and $has-cover;
+                last PAGE if $has-back and $page-num > $page-count;
+                #if $has-back and $page-num == $page-count {
+                #    last;
+                #}
 
                 my PDF::Content $gfx = $page.gfx;
 
