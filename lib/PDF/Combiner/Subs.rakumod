@@ -129,7 +129,7 @@ sub read-config-file($fnam, :$debug --> Config) is export {
         elsif $line ~~ /\h* '='(\S+) \h+ (\N+) / {
             # =option value
             # =begin title | preface
-            # =end title | preface
+            # =end   title | preface
             my $opt = ~$0.lc;
             my $val = normalize-string ~$1;
 

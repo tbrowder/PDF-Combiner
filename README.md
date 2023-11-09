@@ -22,6 +22,11 @@ In the example above, **our-israel-tour.txt** is a simple formatted text file co
 
 Note the PDF files are expected to be in the same directory as the project file. If that is a problem for your use case, please file an issue.
 
+`config` file options
+=====================
+
+  * \=option
+
 CREDITS
 =======
 

@@ -24,6 +24,13 @@ Note the PDF files are expected to be in the same directory as
 the project file. If that is a problem for your use case,
 please file an issue.
 
+=head1 C<config> file options
+
+=begin item
+\=option
+
+=end item
+
 =head1 CREDITS
 
 Thanks to prolific Raku module distribution author David Warring for
