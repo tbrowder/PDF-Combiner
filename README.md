@@ -13,6 +13,27 @@ use PDF::Combiner;
 combine-pdfs config=our-israel-tour.txt
 ```
 
+Installation requirements
+=========================
+
+**PDF::Combiner** requires the system binary program, `ps2pdf`, in order to compress PDF files. To install it on a Debian system, execute:
+
+    sudo apt-get install ps2pdf
+
+To compress any PDF execute:
+
+    ps2pdf -dPDFSETTINGS=/ebook large.pdf smaller.pdf # 150 dpi
+
+    ps2pdf -dPDFSETTINGS=/printer large.pdf smaller.pdf # 300 dpi
+
+A 78 Mb combined PDF compressed to the following sizes:
+
+  * with '-dPDFSETTINGS=/ebook': 2.9 Mb
+
+  * with '-dPDFSETTINGS=/printer': 15 Mb
+
+I could not see any differences in one printed page, but your results may vary. Choose output file compresion on the command line. You may also set it in your project configuration file.
+
 DESCRIPTION
 ===========
 
@@ -44,7 +65,7 @@ Options
 
     The 'value' is optional. Without it, the result is `True` if the option alone is present. If the option is **not** present, the result is `False`. If the 'value' is present, it is evaluated for truthiness.
 
-    A true value currently produces page numbers on each page (except any cover which is number one but not shown); format: 'Page N of M'.
+    A true value currently produces page numbers on each page (except any cover which is number one but not shown); format: 'Page N of M'. 
 
   * `=two-sided` value?
 
@@ -58,13 +79,19 @@ Options
 
     The option and 'value' are required.
 
-    It is the file name of the new document which should have no spaces and have a suffix of `.pdf`.
+    'value' is the file name of the new document which should have no spaces and have a suffix of `.pdf`.
 
-  * `=paper` value! 
+  * `=paper` value!
 
     The option is **not** required. But if it is used, then 'value' is required.
 
     'value' defines the paper size. Current choices are 'Letter' or 'A4'. If the option is not used, the default size is 'Letter'.
+
+  * `=zip` value!
+
+    The option is **not** required. But if it is used, then 'value' is required.
+
+    'value' defines the compression level for the output file. It **must** be either '150' or '300' (dots per inch). It is very useful for PDFs generated from scans. The '150' DPI approximates the density of an ebook while '300' DPI approximates the output from a printer.
 
 Possible additional options
 ===========================

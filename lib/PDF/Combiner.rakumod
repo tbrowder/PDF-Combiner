@@ -34,6 +34,13 @@ multi sub run-cli() is export {
                    one name or option per line, comments and blank lines are
                    ignored. See the 'example-project' directory for examples.
 
+    Options
+        ofile=X  - where X is the desired output file name (which overrides
+                   the 'outfile' setting in the configuration file).
+        zip=X    - where X is the PDF compression level: '150' or '300' DPI.
+                   Output files will get an approriate name extension of 
+                   '.150dpi.pdf' or '.300dpi.pdf'.
+
     'config' file options when present in the file
         =numbers   Bool [explicit 'true' or 'false' OR, with no value:
                      True if present, False if not]
@@ -65,6 +72,9 @@ multi sub run-cli(@args) is export {
     # run all from here while calling into PDF::Combiner::Subs
     my $debug = 0;
     my Config $c;
+    my $ofile;
+    my $zip;
+
     # default config file for debugging;
     my $IFIL  = "example-project/our-israel-trip.txt";
     my $IFIL2 = "/home/tbrowde/mydata/tbrowde-home/israel-trip-1980/our-israel-trip.txt"; 
@@ -78,6 +88,16 @@ multi sub run-cli(@args) is export {
         }
         when /^:i e/ { # e = exercise
             $ifil = $IFIL;
+        }
+        when /^:i o[file]? '=' (\S+) / { 
+            $ofile = ~$0;
+        }
+        when /^:i z[ip]? '=' (\d\d\d) / { 
+            $zip = ~$0;
+            unless $zip eq '150' or $zip eq '300' {
+                say "FATAL: zip values must be 150 or 300, you entered '$zip'";
+                exit;
+            }
         }
         when /^config '=' (\S+) $/ {
             $ifil = ~$0;
@@ -221,8 +241,39 @@ multi sub run-cli(@args) is export {
     say "Total input pages: $tot-pages";
     my $new-pages = $pdf.page-count;
 
-    $pdf.save-as: $c.outfile; #$new-doc;
-    say "See combined pdf: {$c.outfile}"; #$new-doc";
+    my $outfile = $c.outfile;
+    if $ofile.defined {
+        $outfile = $ofile;
+    }
+    if $outfile !~~ /:i '.pdf'$/ {
+        $outfile ~= '.pdf';   
+        # eliminate double dots
+        $outfile ~~ s:g/'..'/./;
+    }
+    else {
+        # lower-case the .pdf
+        $outfile ~~ s/:i pdf$/pdf/;
+    }
+
+    my $Zip = $zip ?? $zip !! $c.zip;
+    if $Zip {
+        # insert the correct zip info
+        $outfile ~~ s/'.pdf'$/.{$Zip}dpi.pdf/;
+        my $tmpfil = "/tmp/pdfout.pdf";
+        $pdf.save-as: $tmpfil;
+        my $arg;
+        if $Zip eq "150" {
+            $arg = "-dPDFSETTINGS=/ebook";
+        }
+        elsif $Zip eq "300" {
+            $arg = "-dPDFSETTINGS=/printer";
+        }
+        run "ps2pdf", $arg, $tmpfil, $outfile;
+    } 
+    else {
+        $pdf.save-as: $outfile;
+    }
+    say "See combined pdf: {$outfile}";
     say "Total pages: $new-pages";
 
 } #multi sub run-cli(@args) is export {

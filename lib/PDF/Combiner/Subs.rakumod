@@ -10,6 +10,7 @@ class Config is export {
     has $.numbers   = False;
     has $.two-sided = False;
     has $.back      = False;
+    has $.zip;              # undefined or "150" or "300"
 
     has $.margins   = 1 * 72;
     has $.paper     = "Letter";
@@ -25,7 +26,7 @@ class Config is export {
     has $.subtitle-font-size;
 
     # paper info
-    method set-option($opt, $val) { # is copy) {
+    method set-option($opt, $val) { 
         if not $val.defined {
             die "FATAL: Unexpected undefined \$val";
         }
@@ -57,6 +58,12 @@ class Config is export {
             }
             when /:i outfile / {
                 $!outfile = $val
+            }
+            when /:i zip / {
+                unless $val ~~ /150|200/ {
+                    die "FATAL: zip value must be 150 or 300, val is '$val'";
+                }
+                $!zip = $val
             }
         }
     }
@@ -158,7 +165,7 @@ sub read-config-file($fnam, :$debug --> Config) is export {
         else {
             # file name or title line (which may be blank)
             my $val = normalize-string $line;
-            note "DEBUG: \$val = '$val'";
+            note "DEBUG: \$val = '$val'" if $debug;
             if $in-title  {
                 $c.add-title-line: $val;
                 next LINE;
