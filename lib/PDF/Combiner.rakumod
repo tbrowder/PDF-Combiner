@@ -83,11 +83,11 @@ multi sub run-cli(@args) is export {
     for @args {
         when /^:i d/ {
             ++$debug;
-            $ifil = $IFIL2;
+            $ifil = $IFIL;
             note "DEBUG is on";
         }
         when /^:i e/ { # e = exercise
-            $ifil = $IFIL;
+            $ifil = $IFIL2;
         }
         when /^:i o[file]? '=' (\S+) / { 
             $ofile = ~$0;
