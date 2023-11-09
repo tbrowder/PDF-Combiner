@@ -17,18 +17,106 @@ into a single PDF document.
 
 In the example above, B<our-israel-tour.txt> is a simple formatted
 text file containing several types of lines. See the example project
-C<config> files in directory C</example-project> for details of the
-file.
+C<config> files in directory C</example-project> for usable examples
+of the input file.
 
 Note the PDF files are expected to be in the same directory as
 the project file. If that is a problem for your use case,
 please file an issue.
 
-=head1 C<config> file options
+=head1 C<config> file
+
+The configuration (or project) file is a typical text file with
+data in single-line format for most options or in
+blocks of text. Its suffix is not specified, but
+the example files have extensions of C<.txt>
+(the author's preference). Options are entered
+in a format taken from Rakudoc: C<=option-name value....>
+or C<=begin option-name>...C<=end option-name>..
+
+Blank lines are ignored (except in text blocks)
+and comments on a line begin at the first C<#> character
+and continue to the end of the line.
+
+Note comments in a text block resulting in a blank line
+will result in that blank line being retained in
+the block.
+
+=head2 Options
 
 =begin item
-\=option
+C<=begin title>...C<=end title>
 
+The lines between the begin/end options
+are used to populate a cover with
+the first line being the title and the
+following lines shown below it after some
+blank lines.
+
+Note no cover is produced without this text
+block, nor is any cover produced if B<all> 
+lines are blank.
+=end item
+
+=begin item
+C<=numbers>  value?
+
+The 'value' is optional. 
+Without it, the result is C<True> if the option alone is present.
+If the option is B<not> present, the result is C<False>.
+If the 'value' is present, it is evaluated for truthiness.
+
+A true value 
+currently produces page numbers on each page
+(except any cover which is number one but not 
+shown); format: 'Page N of M'.
+=end item
+
+=begin item
+C<=two-sided> value?
+
+The 'value' is optional. 
+Without it, the result is C<True> if the option alone is present.
+If the option is B<not> present, the result is C<False>.
+If the 'value' is present, it is evaluated for truthiness.
+
+=end item
+
+=begin item
+C<=back> value?
+
+The 'value' is optional. 
+Without it, the result is C<True> if the option alone is present.
+If the option is B<not> present, the result is C<False>.
+If the 'value' is present, it is evaluated for truthiness.
+
+=end item
+
+=begin item
+C<=outfile> value!
+
+The option and 'value' are required.
+
+It is the file name of the new document which
+should have no spaces and have a suffix of C<.pdf>.
+
+=end item
+
+=begin item
+C<=paper> value!    
+
+The option is B<not> required.
+But if it is used, then 'value' is required.
+
+'value' defines the paper size. Current choices are
+'Letter' or 'A4'. If the option is
+not used, the default size is 'Letter'.
+=end item
+
+=head1 Possible additional options
+
+=begin item
+C<=begin introduction>...C<=end introduction>
 =end item
 
 =head1 CREDITS
