@@ -2,7 +2,8 @@
 
 =head1 NAME
 
-B<PDF::Combiner> - Provides routines and a program to combine and title PDF documents
+B<PDF::Combiner> - Provides routines and a program to combine and
+title PDF documents
 
 =head1 SYNOPSIS
 =begin code :lang<raku>
@@ -12,8 +13,9 @@ combine-pdfs config=our-israel-tour.txt
 
 =head1 Installation requirements
 
-B<PDF::Combiner> requires the system binary program, C<ps2pdf>, in order to
-compress PDF files. To install it on a Debian system, execute:
+B<PDF::Combiner> requires the system binary program, C<ps2pdf>, in
+order to compress PDF files. To install it on a Debian system,
+execute:
 
 =code sudo apt-get install ps2pdf
 
@@ -30,9 +32,8 @@ A 78 Mb combined PDF compressed to the following sizes:
 =item with '-dPDFSETTINGS=/printer': 15 Mb
 
 I could not see any differences in one printed page, but your results
-may vary. Choose output file compresion on the command line.
-You may also set it in your project configuration file.
-
+may vary. Choose output file compresion on the command line.  You may
+also set it in your project configuration file.
 
 =head1 DESCRIPTION
 
@@ -44,9 +45,9 @@ text file containing several types of lines. See the example project
 C<config> files in directory C</example-project> for usable examples
 of the input file.
 
-Note the PDF files are expected to be in the same directory as
-the project file. If that is a problem for your use case,
-please file an issue.
+Note the PDF files are expected to be in the same directory as the
+project file. If that is a problem for your use case, please file an
+issue.
 
 =head1 C<config> file
 
@@ -85,7 +86,7 @@ is C<False>.  If the 'value' is present, it is evaluated for
 truthiness.
 
 A true value currently produces page numbers on each page (except any
-cover which is number one but not shown); format: 'Page N of M'.  
+cover which is number one but not shown); format: 'Page N of M'.
 =end item
 
 =begin item
