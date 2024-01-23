@@ -9,6 +9,7 @@ title PDF documents
 =begin code :lang<raku>
 use PDF::Combiner;
 combine-pdfs config=our-israel-tour.txt
+compress-pdf our-israel-tour.pdf 
 =end code
 
 =head1 Installation requirements
