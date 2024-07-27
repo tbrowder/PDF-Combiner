@@ -6,6 +6,7 @@
   "build-depends": [
   ],
   "depends": [
+    "Compress::PDF",
     "Text::Utils",
     "PDF::Lite",
     "File::Find",

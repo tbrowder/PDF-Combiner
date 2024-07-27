@@ -1,4 +1,5 @@
 use Test;
+
 use PDF::Combiner;
 use PDF::Combiner::Subs;
 
@@ -10,7 +11,6 @@ my $ifil = "./example-project/our-israel-trip.txt";
 lives-ok {
     $c = read-config-file $ifil;
 }, "test Config class and the config reading";
-
 
 my $t0 = "Our Trip to the Holy Land";
 my $t1 = "";

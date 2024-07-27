@@ -11,6 +11,7 @@ SYNOPSIS
 ```raku
 use PDF::Combiner;
 combine-pdfs config=our-israel-tour.txt
+compress-pdf our-israel-tour.pdf
 ```
 
 Installation requirements
@@ -65,7 +66,7 @@ Options
 
     The 'value' is optional. Without it, the result is `True` if the option alone is present. If the option is **not** present, the result is `False`. If the 'value' is present, it is evaluated for truthiness.
 
-    A true value currently produces page numbers on each page (except any cover which is number one but not shown); format: 'Page N of M'. 
+    A true value currently produces page numbers on each page (except any cover which is number one but not shown); format: 'Page N of M'.
 
   * `=two-sided` value?
 

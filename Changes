@@ -3,6 +3,7 @@ Revision history for PDF-Combiner
 {{$NEXT}}
     - Add a raku executable to compress pdfs: 'compress-pdf'
     - Update docs accordingly
+    - Ensure a single doc can get page numbering
 
 0.0.1  2023-11-09T17:31:12-06:00
     - Initial version
