@@ -9,7 +9,7 @@ title PDF documents
 =begin code :lang<raku>
 use PDF::Combiner;
 combine-pdfs config=our-israel-tour.txt
-compress-pdf our-israel-tour.pdf 
+compress-pdf our-israel-tour.pdf
 =end code
 
 =head1 Installation requirements
@@ -158,7 +158,7 @@ Tom Browder <tbrowder@acm.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-© 2022-2023 Tom Browder
+© 2022-2024 Tom Browder
 
 This library is free software; you may redistribute it or modify it under the Artistic License 2.0.
 

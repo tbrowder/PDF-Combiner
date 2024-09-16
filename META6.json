@@ -25,6 +25,7 @@
   ],
   "source-url": "https://github.com/tbrowder/PDF-Combiner.git",
   "tags": [
+    "pdf pod markdown convert pod2pdf"
   ],
   "test-depends": [
   ],
