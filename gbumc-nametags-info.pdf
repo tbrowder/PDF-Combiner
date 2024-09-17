@@ -1,0 +1,477 @@
+%PDF-1.4
+%¥±ë¼
+1 0 obj
+<<
+  /Author (Tom Browder)
+  /CreationDate (D:20240917074828-05'00')
+  /Creator (Raku-6.d, PDF::Lite-0.0.14; PDF::Content-0.8.7; PDF-0.6.7)
+  /Producer (Pod::To::PDF::Lite-0.1.9)
+  /Title (GBUMC Name Tags: The Project)
+>>
+endobj
+
+2 0 obj
+<< /Type /Catalog /Lang (en) /Pages 3 0 R >>
+endobj
+
+3 0 obj
+<<
+  /Type /Pages
+  /Count 3
+  /Kids [ 4 0 R 9 0 R 11 0 R ]
+  /MediaBox [ 0 0 612 792 ]
+>>
+endobj
+
+4 0 obj
+<<
+  /Type /Page
+  /Contents 5 0 R
+  /Parent 3 0 R
+  /Resources << /Font << /F1 6 0 R /F2 7 0 R /F3 8 0 R >> >>
+>>
+endobj
+
+5 0 obj
+<< /Length 3019 >> stream
+BT
+  1 0 0 1 72 704 Tm
+  /F1 28 Tf
+  [ (GB) 10 (UMC Name T) 92 (ags: The Pr) 18 (oject) ] TJ
+ET
+q
+  1.4 w
+  72 701.2 m
+  474.556 701.2 l
+  S
+Q
+BT
+  1 0 0 1 72 677.6 Tm
+  /F2 12 Tf
+  [ (T) 80 (om Bro) 25 (wder) ] TJ
+ET
+BT
+  1 0 0 1 72 651.2 Tm
+  (2024-09-17) Tj
+ET
+BT
+  1 0 0 1 72 616 Tm
+  /F1 16 Tf
+  [ (Intr) 18 (oduction) ] TJ
+ET
+BT
+  1 0 0 1 72 589.6 Tm
+  /F2 12 Tf
+  [ (This paper describes my project to create suitable name tags for use by GB) 10 (UMC congre) 15 (g) 5 (ants and) ] TJ
+  13.2 TL
+  T*
+  [ (staf) 25 (f.) ] TJ
+ET
+BT
+  1 0 0 1 72 541.2 Tm
+  /F1 16 Tf
+  [ (A. Status as of Sunday) 55 (, 2024-09-15) ] TJ
+ET
+BT
+  1 0 0 1 72 514.8 Tm
+  /F2 12 Tf
+  [ (I will continue to tweak the name tags, and welcome an) 15 (y suggested changes. I do plan to mak) 10 (e) ] TJ
+  T*
+  [ (the embellishment pattern \(aka GB) 10 (UMC logo\) e) 15 (xactly the same as the one that appears on the) ] TJ
+  T*
+  [ (bottom-right corner of today’) 55 (s b) 20 (ulletin. There are also technical issues to f) 20 (ix that unduly slo) 25 (w the) ] TJ
+  T*
+  (generation of each name tag.) Tj
+ET
+BT
+  1 0 0 1 72 440 Tm
+  /F1 16 Tf
+  [ (B. My moti) 10 (v) 10 (ation) ] TJ
+ET
+BT
+  1 0 0 1 72 413.6 Tm
+  /F2 12 Tf
+  [ (In my adv) 25 (anced age, it is getting harder to remember names. Seeing congre) 15 (g) 5 (ants with an easily-) ] TJ
+  T*
+  [ (readable name tag helps recalling the name for use in con) 40 (v) 15 (ersation. My name tag design f) 20 (its that) ] TJ
+  T*
+  (requirement.) Tj
+ET
+BT
+  1 0 0 1 72 360.8 Tm
+  [ (Importantly) 65 (, it also identif) 20 (ies one as a GB) 10 (UMC congre) 15 (g) 5 (ant and is v) 15 (ery suitable for wear at an) 15 (y) ] TJ
+  T*
+  [ (church-related e) 25 (v) 15 (ent, particularly public e) 25 (v) 15 (ents such as T) 35 (runk or T) 35 (reat or other outreach e) 25 (v) 15 (ents.) ] TJ
+ET
+BT
+  1 0 0 1 72 312.4 Tm
+  /F1 16 Tf
+  [ (C. Unique featur) 18 (es of the name tag) ] TJ
+ET
+BT
+  1 0 0 1 72 286 Tm
+  /F2 12 Tf
+  [ (1. If printed correctly on tw) 10 (o-sided paper) 40 (, the same design \(and names\) appear e) 25 (v) 15 (en if it is) ] TJ
+  T*
+  [ (flipped o) 15 (v) 15 (er as happens so often when one is wearing them.) ] TJ
+ET
+BT
+  1 0 0 1 72 246.4 Tm
+  [ (2. Dimensions, te) 15 (xt, colors, and embellishments are easily changed.) ] TJ
+ET
+BT
+  1 0 0 1 72 220 Tm
+  [ (3. The) 15 (y are cheap to produce: Clear plastic badge holders from W) 80 (almart \(including our local) ] TJ
+  T*
+  [ ("little" W) 80 (almart\) or Amazon can be bought for 50 cents or less and the) 15 (y ha) 20 (v) 15 (e pock) 10 (et clips) ] TJ
+  T*
+  [ (included. Suitable lan) 15 (yards are also ine) 15 (xpensi) 25 (v) 15 (e.) ] TJ
+ET
+BT
+  1 0 0 1 72 167.2 Tm
+  [ (4. W) 40 (ith the current size of them, eight name tags can printed per sheet of paper) 55 (. \(I kno) 25 (w the) ] TJ
+  T*
+  [ (church has a good color) 20 (-capable printer) 55 (.) ] TJ
+ET
+BT
+  1 0 0 1 72 127.6 Tm
+  [ (5. The) 15 (y are easy to cut out and assemble.) ] TJ
+ET
+BT
+  1 0 0 1 540 63 Tm
+  /F3 9 Tf
+  [ 5115 (Page 1 of 3) ] TJ
+ET
+endstream
+endobj
+
+6 0 obj
+<<
+  /Type /Font
+  /Subtype /Type1
+  /BaseFont /Times-Bold
+  /Encoding /WinAnsiEncoding
+>>
+endobj
+
+7 0 obj
+<<
+  /Type /Font
+  /Subtype /Type1
+  /BaseFont /Times-Roman
+  /Encoding /WinAnsiEncoding
+>>
+endobj
+
+8 0 obj
+<<
+  /Type /Font
+  /Subtype /Type1
+  /BaseFont /Helvetica
+  /Encoding /WinAnsiEncoding
+>>
+endobj
+
+9 0 obj
+<<
+  /Type /Page
+  /Contents 10 0 R
+  /Parent 3 0 R
+  /Resources << /Font << /F1 7 0 R /F2 6 0 R /F3 8 0 R >> >>
+>>
+endobj
+
+10 0 obj
+<< /Length 3394 >> stream
+BT
+  1 0 0 1 72 704 Tm
+  /F1 12 Tf
+  [ (6. Mistak) 10 (es are readily corrected.) ] TJ
+ET
+BT
+  1 0 0 1 72 668.8 Tm
+  /F2 16 Tf
+  [ (D) 20 (. Pr) 18 (oducing the name tags) ] TJ
+ET
+BT
+  1 0 0 1 72 642.4 Tm
+  /F1 12 Tf
+  [ (I ha) 20 (v) 15 (e created a free, publicly a) 20 (v) 25 (ailable \(see details belo) 25 (w\), Raku computer language program) ] TJ
+  13.2 TL
+  T*
+  (\(see ) Tj
+ET
+q
+  0 0 1 rg
+  0 0 1 RG
+  BT
+    1 0 0 1 72 629.2 Tm
+    [ -1860 (https://Raku.or) 18 (g) ] TJ
+  ET
+Q
+BT
+  1 0 0 1 72 629.2 Tm
+  [ -8315 (\) that creates the tw) 10 (o-sided PDF sheet for US Letter paper in Portrait) ] TJ
+  T*
+  [ (orientation. The program is command-line e) 15 (x) 15 (ecuted on computers running a GNU/Linux) ] TJ
+  T*
+  [ (operating system \(I use Debian\). It should also run on a MacOS system when I e) 25 (v) 15 (entually port) ] TJ
+  T*
+  [ (the program to it using my wife's Mac \(that is a lo) 25 (w priority until users request it by f) 20 (iling an) ] TJ
+  T*
+  (issue on GitHub OR emailing me\).) Tj
+ET
+BT
+  1 0 0 1 72 550 Tm
+  [ (Note the Mac system will ha) 20 (v) 15 (e to ha) 20 (v) 15 (e some Rakudo and other prerequisite programs installed \(I) ] TJ
+  T*
+  [ (ha) 20 (v) 15 (e one to w) 10 (ork with for my use, b) 20 (ut check with your IT person for an) 15 (y computers on the) ] TJ
+  T*
+  [ (church's pri) 25 (v) 25 (ate netw) 10 (ork\).) ] TJ
+ET
+BT
+  1 0 0 1 72 497.2 Tm
+  [ (It is also possible to port it to W) 40 (indo) 25 (ws, b) 20 (ut that is not so easy gi) 25 (v) 15 (en the weirdisms of the) ] TJ
+  T*
+  [ (W) 40 (indo) 25 (ws OS pre) 25 (v) 15 (enting so man) 15 (y prerequistes from being ported to it.) ] TJ
+ET
+BT
+  1 0 0 1 72 448.8 Tm
+  /F2 16 Tf
+  [ (E. Running the name tag pr) 18 (ogram) ] TJ
+ET
+BT
+  1 0 0 1 72 422.4 Tm
+  /F1 12 Tf
+  [ (The only input required is a list of names in a plain te) 15 (xt document such as a CSV f) 20 (ile or a) ] TJ
+  T*
+  [ (W) 40 (indo) 25 (ws Notepad f) 20 (ile. That f) 20 (ile is pro) 15 (vided as the only input to the program, and the output is a) ] TJ
+  T*
+  [ (single PDF document suitable for printing on almost an) 15 (y modern printer) 40 (, or vie) 25 (wing in most) ] TJ
+  T*
+  [ (modern web bro) 25 (wsers.) ] TJ
+ET
+BT
+  1 0 0 1 72 356.4 Tm
+  [ (The input f) 20 (ile must be formatted according to these rules \(see F) 15 (ormatting notes\):) ] TJ
+ET
+BT
+  1 0 0 1 82 330 Tm
+  (•) Tj
+ET
+BT
+  1 0 0 1 92 330 Tm
+  (one name per line) Tj
+ET
+BT
+  1 0 0 1 82 303.6 Tm
+  (•) Tj
+ET
+BT
+  1 0 0 1 92 303.6 Tm
+  [ (last-name f) 20 (irst-name middle-name) ] TJ
+ET
+BT
+  1 0 0 1 92 277.2 Tm
+  (·) Tj
+ET
+BT
+  1 0 0 1 102 277.2 Tm
+  [ (in that order) 40 (, middle-name is optional) ] TJ
+ET
+BT
+  1 0 0 1 72 246.4 Tm
+  /F2 14 Tf
+  [ (F) 25 (ormatting notes:) ] TJ
+ET
+BT
+  1 0 0 1 82 220 Tm
+  /F1 12 Tf
+  (•) Tj
+ET
+BT
+  1 0 0 1 92 220 Tm
+  (names may be separated by spaces or commas) Tj
+ET
+BT
+  1 0 0 1 92 193.6 Tm
+  (·) Tj
+ET
+BT
+  1 0 0 1 102 193.6 Tm
+  [ (in a CSV f) 20 (ile use the f) 20 (irst tw) 10 (o or three cells) ] TJ
+ET
+BT
+  1 0 0 1 82 167.2 Tm
+  (•) Tj
+ET
+BT
+  1 0 0 1 92 167.2 Tm
+  [ (the f) 20 (irst-name \(along with an) 15 (y middle-name\) will be printed on the f) 20 (irst line of the name tag) ] TJ
+ET
+BT
+  1 0 0 1 82 140.8 Tm
+  (•) Tj
+ET
+BT
+  1 0 0 1 92 140.8 Tm
+  (the last-name will be printed on the second line of the name tag) Tj
+ET
+BT
+  1 0 0 1 540 63 Tm
+  /F3 9 Tf
+  [ 5115 (Page 2 of 3) ] TJ
+ET
+endstream
+endobj
+
+11 0 obj
+<<
+  /Type /Page
+  /Contents 12 0 R
+  /Parent 3 0 R
+  /Resources << /Font << /F1 6 0 R /F2 7 0 R /F3 8 0 R >> >>
+>>
+endobj
+
+12 0 obj
+<< /Length 2574 >> stream
+BT
+  1 0 0 1 72 704 Tm
+  /F1 16 Tf
+  [ (F) 110 (. Pr) 18 (ogram code) ] TJ
+ET
+BT
+  1 0 0 1 72 677.6 Tm
+  /F2 12 Tf
+  [ (The program source code is publicly a) 20 (v) 25 (ailable in the /de) 25 (v directory of the F) 15 (ontF) 15 (actory repository) ] TJ
+  13.2 TL
+  T*
+  (in my GitHub account \(see ) Tj
+ET
+q
+  0 0 1 rg
+  0 0 1 RG
+  BT
+    1 0 0 1 72 664.4 Tm
+    [ -11026 (https://github) 40 (.com/tbro) 25 (wder/F) 15 (ontF) 15 (actory) ] TJ
+  ET
+Q
+BT
+  1 0 0 1 72 664.4 Tm
+  [ -27293 (\). The program f) 20 (ile name is) ] TJ
+  T*
+  [ ('mak) 10 (e-name-tags.raku'.) ] TJ
+ET
+BT
+  1 0 0 1 72 616 Tm
+  /F1 16 Tf
+  [ (G. T) 92 (echnical notes) ] TJ
+ET
+BT
+  1 0 0 1 72 585.2 Tm
+  /F1 14 Tf
+  [ (Issues to be corr) 18 (ected:) ] TJ
+ET
+BT
+  1 0 0 1 82 558.8 Tm
+  /F2 12 Tf
+  (•) Tj
+ET
+BT
+  1 0 0 1 92 558.8 Tm
+  [ (Mak) 10 (e the logo image an XOject to impro) 15 (v) 15 (e ef) 25 (f) 20 (icienc) 15 (y) ] TJ
+ET
+BT
+  1 0 0 1 82 532.4 Tm
+  (•) Tj
+ET
+BT
+  1 0 0 1 92 532.4 Tm
+  [ (Crop the image to eliminate bounding transparent pix) 15 (els) ] TJ
+ET
+BT
+  1 0 0 1 82 506 Tm
+  (•) Tj
+ET
+BT
+  1 0 0 1 92 506 Tm
+  (Create hot links for the URL references in this document) Tj
+ET
+BT
+  1 0 0 1 72 475.2 Tm
+  /F1 14 Tf
+  [ (P) 20 (ossible enhancements:) ] TJ
+ET
+BT
+  1 0 0 1 82 448.8 Tm
+  /F2 12 Tf
+  (•) Tj
+ET
+BT
+  1 0 0 1 92 448.8 Tm
+  [ (Add staf) 25 (f position as a third line in a smaller font size) ] TJ
+ET
+BT
+  1 0 0 1 72 413.6 Tm
+  /F1 16 Tf
+  (Summary) Tj
+ET
+BT
+  1 0 0 1 72 387.2 Tm
+  /F2 12 Tf
+  [ (The project pro) 15 (vides a turn-k) 10 (e) 15 (y solution to an ine) 15 (xpensi) 25 (v) 15 (e w) 10 (ay to pro) 15 (vide name tags if desired. It) ] TJ
+  T*
+  [ (has been fun to do and it has added to my kno) 25 (wledge \(and that of my Raku PDF mentor\) of PDF) ] TJ
+  T*
+  (graphics handling and clipping.) Tj
+ET
+BT
+  1 0 0 1 72 334.4 Tm
+  [ (I am happ) 10 (y to assist in producing or helping with an) 15 (y part of using the name tags. I can also) ] TJ
+  T*
+  [ (easily produce the PDF documents at home if I recei) 25 (v) 15 (e the input f) 20 (iles, and then email them back) ] TJ
+  T*
+  [ (to the requestor) 55 (.) ] TJ
+ET
+BT
+  1 0 0 1 72 281.6 Tm
+  [ (I am a) 20 (v) 25 (ailable to answer questions or pro) 15 (vide other help in person or by email) ] TJ
+  T*
+  [ (\(tom.bro) 25 (wder@gmail.com\) or mobile phone \(850-830-8078\). \(I normally don't answer unless I) ] TJ
+  T*
+  [ (recognize the number) 40 (, b) 20 (ut will return your call if you lea) 20 (v) 15 (e a v) 20 (oice message.\)) ] TJ
+ET
+BT
+  1 0 0 1 540 63 Tm
+  /F3 9 Tf
+  [ 5115 (Page 3 of 3) ] TJ
+ET
+endstream
+endobj
+
+xref
+0 13
+0000000000 65535 f 
+0000000015 00000 n 
+0000000253 00000 n 
+0000000314 00000 n 
+0000000421 00000 n 
+0000000552 00000 n 
+0000003624 00000 n 
+0000003731 00000 n 
+0000003839 00000 n 
+0000003945 00000 n 
+0000004077 00000 n 
+0000007525 00000 n 
+0000007658 00000 n 
+trailer
+<<
+  /ID [ <366a31ab9a93d81e8ea955d7bb271a7d> <366a31ab9a93d81e8ea955d7bb271a7d> ]
+  /Info 1 0 R
+  /Root 2 0 R
+  /Size 13
+>>
+startxref
+10286
+%%EOF
