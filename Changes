@@ -1,7 +1,9 @@
 Revision history for PDF-Combiner
 
 {{$NEXT}}
-    - Add a raku executable to compress pdfs: 'compress-pdf'
+    - Add cabability to convert a Rakudoc file to a PDF based on the
+        RakuAdvent 2022 article: Santa and the Rakupod Wranglers
+    - Use a Raku module 'PDF::Compress' to enable compressing pdfs
     - Update docs accordingly
     - Ensure a single doc can get page numbering
     - Add important tags: pdf pod markdown convert pod2pdf

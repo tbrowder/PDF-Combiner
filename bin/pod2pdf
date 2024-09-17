@@ -1,0 +1,104 @@
+#!/bin/env raku
+
+use Pod::To::PDF::Lite:ver<0.1.9>;
+use PDF::Lite;
+use PDF::Font::Loader;
+use Pod::Load;
+
+my @fonts = (
+    %(:file</usr/share/fonts/opentype/freefont/FreeSerif>),
+    %(:file</usr/share/fonts/opentype/freefont/FreeSerifBold>, :bold),
+    %(:file</usr/share/fonts/opentype/freefont/FreeSerifItalic>, :italic),
+    %(:file</usr/share/fonts/opentype/freefont/FreeSerifBoldItalic>, :bold, :italic),
+);
+
+my enum Paper <Letter A4>;
+my $debug   = 0;
+my $left    = 1 * 72; # inches => PS points
+my $right   = 1 * 72; # inches => PS points
+my $top     = 1 * 72; # inches => PS points
+my $bottom  = 1 * 72; # inches => PS points
+my $margin  = 1 * 72; # inches => PS points
+my Paper $paper = Letter;
+my $page-numbers = False;
+
+my $pod-file = "gbumc-nametags-info.rakudoc";
+my $pdf-file = "gbumc-nametags-info.pdf";
+if not @*ARGS.elems {
+    print qq:to/HERE/;
+    Usage: {$*PROGRAM.basename} go [...options...]
+
+    Options
+      paper=X    - Paper name: A4, Letter [default: Letter]
+      margin=X   - default: 1"
+      numbers    - Produces page numbers on each page
+                   (bottom right of page: 'Page N of M')
+
+    Converts Rakupod to PDF
+    HERE
+    exit
+}
+
+# defaults for US Letter paper
+my $height = 11.0 * 72;
+my $width  =  8.5 * 72;
+# for A4
+# $height =; # 11.7 in
+# $width = ; #  8.3 in
+
+for @*ARGS {
+    when /^ :i n[umbers]? / {
+        $page-numbers = True;
+    }
+    when /^ :i p[aper]? '=' (\S+) / {
+        $paper = ~$0;
+        if $paper ~~ /^ :i a4 $/ {
+            $height = 11.7 * 72;
+            $width  =  8.3 * 72;
+        }
+        elsif $paper ~~ /^ :i L / {
+            $height = 11.0 * 72;
+            $width  =  8.5 * 72;
+        }
+        else {
+            die "FATAL: Unknown paper type '$paper'";
+        }
+    }
+    when /^ :i l[eft]? '=' (\S+) / {
+        $left = +$0 * 72;
+    }
+    when /^ :i r[ight] '=' (\S+) / {
+        $right = +$0 * 72;
+    }
+    when /^ :i t[op]? '=' (\S+) / {
+        $right = +$0 * 72;
+    }
+    when /^ :i b[ottom]? '=' (\S+) / {
+        $bottom = +$0 * 72;
+    }
+    when /^ :i m[argin]? '=' (\S+) / {
+        $margin = +$0 * 72;
+    }
+    when /^ :i d / { ++$debug }
+}
+
+# Method 1
+# Create a Markdown file from pod
+
+# Convert to PDF
+
+# Extract the pod object from the pod
+my $pod = load $pod-file;
+
+if $debug {
+    say $pod.raku;
+    say "DEBUG exit"; exit;
+}
+
+# Then convert the pod object to pdf
+my PDF::Lite $pdf = pod2pdf $pod, 
+:$height, :$width, :$margin, :$page-numbers; #, :@fonts;
+
+# manipulate the PDF some more
+$pdf.save-as: $pdf-file;
+say "See output pdf file: $pdf-file";
