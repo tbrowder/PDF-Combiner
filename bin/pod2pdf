@@ -33,6 +33,9 @@ if not @*ARGS.elems {
       margin=X   - default: 1"
       numbers    - Produces page numbers on each page
                    (bottom right of page: 'Page N of M')
+      zip        - Compresses pdf output to 150 dpi level
+      zip=X      - Compresses pdf output to X dpi level
+                   where X=150|300
 
     Converts Rakupod to PDF
     HERE
@@ -100,5 +103,7 @@ my PDF::Lite $pdf = pod2pdf $pod,
 :$height, :$width, :$margin, :$page-numbers; #, :@fonts;
 
 # manipulate the PDF some more
+# for compression
+
 $pdf.save-as: $pdf-file;
 say "See output pdf file: $pdf-file";
