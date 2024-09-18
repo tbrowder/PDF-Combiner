@@ -22,13 +22,19 @@ my $margin  = 1 * 72; # inches => PS points
 my Paper $paper = Letter;
 my $page-numbers = False;
 
-my $pod-file = "gbumc-nametags-info.rakudoc";
-my $pdf-file = "gbumc-nametags-info.pdf";
+#my $pod-file = "gbumc-nametags-info.rakudoc";
+#my $pdf-file = "gbumc-nametags-info.pdf";
+my ($pod-file, $pdf-file);
+my $ofil = "default.pdf";
+
+my $zip;
 if not @*ARGS.elems {
     print qq:to/HERE/;
-    Usage: {$*PROGRAM.basename} go [...options...]
+    Usage: {$*PROGRAM.basename} <pod file> [...options...]
 
     Options
+      pdf=X      - Where X is the desired output PDF file
+                   (default: 'default.pdf')
       paper=X    - Paper name: A4, Letter [default: Letter]
       margin=X   - default: 1"
       numbers    - Produces page numbers on each page
@@ -49,7 +55,15 @@ my $width  =  8.5 * 72;
 # $height =; # 11.7 in
 # $width = ; #  8.3 in
 
+my @pod-files;
+my %pod-files; # prevent dup name
+my @pdf-files;
 for @*ARGS {
+    if $_.IO.r {
+        @pod-files.push: $_;
+        next;
+    }
+
     when /^ :i n[umbers]? / {
         $page-numbers = True;
     }
@@ -83,27 +97,42 @@ for @*ARGS {
         $margin = +$0 * 72;
     }
     when /^ :i d / { ++$debug }
+    default {
+        say "FATAL: Unknown arg '$_'";
+        exit;
+    }
 }
 
 # Method 1
 # Create a Markdown file from pod
 
+
 # Convert to PDF
-
 # Extract the pod object from the pod
-my $pod = load $pod-file;
 
-if $debug {
-    say $pod.raku;
-    say "DEBUG exit"; exit;
+for @pod-files -> $pod-file {
+    my $pod = load $pod-file;
+
+    # Then convert the pod object to pdf
+    my PDF::Lite $pdf = pod2pdf $pod, 
+    :$height, :$width, :$margin, :$page-numbers; #, :@fonts;
+    @pdf-files.push: $pdf;
+
+    # manipulate the PDF some more
+    # for compression
+    if $zip {
+        say "WARNING: Unable yet to handle PDF compression";
+    }
+
 }
 
-# Then convert the pod object to pdf
-my PDF::Lite $pdf = pod2pdf $pod, 
-:$height, :$width, :$margin, :$page-numbers; #, :@fonts;
-
-# manipulate the PDF some more
-# for compression
-
-$pdf.save-as: $pdf-file;
-say "See output pdf file: $pdf-file";
+my $nf = @pod-files.elems;
+if @pod-files > 1 {
+    say "FATAL: Unable yet to handle $nf input rakudoc files.";
+    exit;
+}
+else {
+    my $pdf = @pdf-files.head;
+    $pdf.save-as: $ofil;
+    say "See output pdf file: $ofil";
+}
