@@ -6,6 +6,7 @@
   "build-depends": [
   ],
   "depends": [
+    "QueryOS",
     "Compress::PDF",
     "Text::Utils",
     "PDF::Lite",
