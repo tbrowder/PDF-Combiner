@@ -1,9 +1,12 @@
 use Test;
 
-use PDF::Combiner;
-use PDF::Combiner::Subs;
+my @modules = <
+    PDF::Combiner
+    PDF::Combiner::Subs
+>;
 
-use-ok "PDF::Combiner";
-use-ok "PDF::Combiner::Subs";
+plan @modules.elems;
 
-done-testing;
+for @modules {
+    use-ok $_, say "Module '$_' is used okay";
+}

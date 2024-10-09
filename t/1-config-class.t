@@ -6,7 +6,7 @@ use PDF::Combiner::Subs;
 my $c = Config.new;
 isa-ok $c, Config;
 
-my $ifil = "./example-project/our-israel-trip.txt";
+my $ifil = "./example-projects/israel-trip/our-israel-trip.txt";
 
 lives-ok {
     $c = read-config-file $ifil;
