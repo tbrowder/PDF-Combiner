@@ -42,7 +42,12 @@ DESCRIPTION
 
 In the example above, **our-israel-tour.txt** is a simple formatted text file containing several types of lines. See the example project `config` files in directory `/example-project` for usable examples of the input file.
 
-Note the PDF files are expected to be in the same directory as the project file. If that is a problem for your use case, please file an issue.
+Note at the moment, the PDF files are expected to be in the same directory as the project file. If that is a problem for your use case, please file an issue.
+
+Changing PDF Format Versions
+----------------------------
+
+Currently, the Raku PDF tools can't reliably handle versions greater than 1.4. However, there is a Ghostscript procedure that may be able to downgrade without causing too much fidelity and is worth trying. The code here was obtained from Stack ********
 
 `config` file
 =============
@@ -67,6 +72,11 @@ Options
     The 'value' is optional. Without it, the result is `True` if the option alone is present. If the option is **not** present, the result is `False`. If the 'value' is present, it is evaluated for truthiness.
 
     A true value currently produces page numbers on each page (except any cover which is number one but not shown); format: 'Page N of M'.
+
+    A value of 'per-file' allows a custom page number define per input PDF file. For example:
+
+        pd01.pdf      page01
+        pdX.pdf       page02
 
   * `=two-sided` value?
 

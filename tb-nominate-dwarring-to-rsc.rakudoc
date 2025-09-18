@@ -1,15 +1,15 @@
 =begin pod
-2024-09-18
+2024-10-26
 
 FROM: Thomas M. Browder, Jr. (aka @tbrowder)
 SUBJ: Nomination for the ? Award
 TO:   Raku Steering Council
 
-I hereby nominate David Warring (@dwarrring) for the Raku ?
+I hereby nominate David Warring (@dwarrring) for the Raku Rainbow Butterfly
 award. Although David has not been active on IRC (i think it’s because
 he lives in Australia), he has been active on the Perl6 mailing list
 since the beginning (and coming to Raku as a very active Perl
-contributor). This morning went through my gmail stash and created a
+contributor). This morning I went through my gmail stash and created a
 label for PDF and David. My first contact with him was in 2015 and my
 most recent was today.
 
@@ -19,11 +19,26 @@ as the HarfBuzz and FreeFont C/C++ libraries. But he also contributed
 significant PRs and bug reports to Rakudo in its early, formative
 years.
 
+Raku.land currently credits David with 47 published modules. He has
+module sources on GitHub under several root repositories:
+
++ github.com/pdf-raku # the primary source of his PDF modules
++ github.com/dwarring # other module sources
+
+
+I did a fairly rigorous analysis using 'zef info' data
+on 4? of his modules and found the
+following:
+
+ 
+
+
 He is always quick to respond to my questions, and is obviously
 patient and kind. His depth of knowledge of Raku is readily seen after
 only a brief survey of his libraries.
 
 Checking my email labels with David as the main respondent or PR
-submitter or bug reporter I get a total of over 20 since April 2015.
+submitter or bug reporter I get a total of over 20 sets of conversations
+since April 2015.
 
 =end pod

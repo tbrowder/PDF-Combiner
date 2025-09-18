@@ -26,28 +26,40 @@ my $width  =  8.5 * 72;
 
 multi sub run-cli() is export {
     print qq:to/HERE/;
-    Usage: {$*PROGRAM.basename} config=my-pdf-project.txt
+    Usage: {$*PROGRAM.basename} <mode> [args...] [options...]
 
-    Args
-        config=X - where X is the name of a configuration file listing various
-                   options as well as a list of PDF documents to be combined,
-                   one name or option per line, comments and blank lines are
-                   ignored. See the 'example-project' directory for examples.
+    Modes:
+        simple @pdfs ofile=X
+             - Combines a list of PDF files into one. 
+
+        config=X 
+             - Where X is the name of a configuration file listing various
+               options as well as a list of PDF documents to be combined,
+               one name or option per line, comments and blank lines are
+               ignored. See the 'example-projects' directory for examples.
 
     Options
         ofile=X  - where X is the desired output file name (which overrides
                    the 'outfile' setting in the configuration file).
-        zip=X    - where X is the PDF compression level: '150' or '300' DPI.
-                   Output files will get an approriate name extension of 
-                   '.150dpi.pdf' or '.300dpi.pdf'.
+        zip[=X]  - where X is the PDF compression level: '0', '150' or '300' DPI.
+                   Output files will get an appropriate name extension of
+                   '.150dpi.pdf' or '.300dpi.pdf'. [default: 150]
+                   Note all output is, by default, compressed to 300' DPI
+                   (with NO suffix) if no zip value is entered. 
 
     'config' file options when present in the file
+        =simple    Bool [explicit 'true' or 'false' OR, with no value:
+                     True if present, False if not]
+                     All other options are ignored except 'zip'
+
         =numbers   Bool [explicit 'true' or 'false' OR, with no value:
                      True if present, False if not]
 
                    produces page numbers on each page
                    except the cover which is number
-                   one but not shown; format: 'Page N of M'
+                   'i' one but not shown; format: 'Page N of M'
+                   (a title page by default gets a blank reverse page
+                    which is page 'ii' but is not shown)
 
         =begin title # empty or no title bock: no cover page
                    title line for the cover page
@@ -61,6 +73,7 @@ multi sub run-cli() is export {
         =outfile   file name of the new document
         =paper     'Letter' or 'A4' [default: Letter]
         =margins   size in PostScript points [default: 72 (one inch)]
+        =compress  empty OR 150 or 300 [default: empty (none)]]
 
     Combines the input PDFs into one document
     HERE
@@ -70,17 +83,32 @@ multi sub run-cli() is export {
 multi sub run-cli(@args) is export {
 
     # run all from here while calling into PDF::Combiner::Subs
-    my $debug = 0;
+    my $debug  = 0;
+    my $simple = 0;
     my Config $c;
     my $ofile;
     my $zip;
 
     # default config file for debugging;
     my $IFIL  = "example-project/our-israel-trip.txt";
-    my $IFIL2 = "/home/tbrowde/mydata/tbrowde-home/israel-trip-1980/our-israel-trip.txt"; 
+    my $IFIL2 = "/home/tbrowde/mydata/tbrowde-home/israel-trip-1980/our-israel-trip.txt";
 
     my $ifil;
-    for @args {
+    my @ifils;
+    ARG: for @args {
+        if $simple and $_ ~~ /:i '.' pdf $/ {
+            # check for valid .pdf input
+            if $_ !~~ /'='| zip/ {
+                # add to @ifils
+                @ifils.push: $_;
+                next ARG;
+            }
+        }
+
+        when /^:i s/ {
+            # should be the first arg entry
+            ++$simple;
+        }
         when /^:i d/ {
             ++$debug;
             $ifil = $IFIL;
@@ -89,10 +117,10 @@ multi sub run-cli(@args) is export {
         when /^:i e/ { # e = exercise
             $ifil = $IFIL2;
         }
-        when /^:i o[file]? '=' (\S+) / { 
+        when /^:i o[file]? '=' (\S+) / {
             $ofile = ~$0;
         }
-        when /^:i z[ip]? '=' (\d\d\d) / { 
+        when /^:i z[ip]? '=' (\d\d\d) / {
             $zip = ~$0;
             unless $zip eq '150' or $zip eq '300' {
                 say "FATAL: zip values must be 150 or 300, you entered '$zip'";
@@ -111,10 +139,37 @@ multi sub run-cli(@args) is export {
         }
     }
 
+    # Start with a NEW and empty PDF.
+    my $parent-pdf = PDF::Lite.new;
+    my @pdf-objs;
+
+    # handle the VERY simple case
+    if $simple {
+        unless $ofile { 
+            print qq:to/HERE/;
+            HERE
+            exit(1);
+        }
+        # feed to the simple-combine
+        simple-combine @ifils, :$ofile, :$debug;
+               
+        exit(0);
+    }
+
     # collect data
     $c = read-config-file $ifil, :$debug;
 
-    my @pdf-objs;
+    if $c.simple {
+        my $ofil  = $c.outfile;
+        my @files = $c.pdfs;
+        # combine, output to a file, and report
+        simple-combine @files, :$debug;
+
+        say "Finished a simple combine";
+        say "See output file '$ofile'";
+        exit
+    }
+
     for $c.pdfs -> $pdf-in {
         my $pdf-obj = PDF::Lite.open: $pdf-in;
         @pdf-objs.push: $pdf-obj;
@@ -187,13 +242,15 @@ multi sub run-cli(@args) is export {
         $tot-pages += $pc;
         for 1..$pc -> $page-num {
             $pdf.add-page: $pdf-obj.page($page-num);
+            $parent-pdf.add-page: $pdf-obj.page($page-num);
         }
     }
 
     if $has-back {
         # add a single blank page
         $page = $pdf.add-page;
-        say "A single page, empty back cover added."
+        say "A single page, empty back cover added.";
+        $parent-pdf.add-page: $page;
     }
 
     if $c.numbers {
@@ -227,7 +284,7 @@ multi sub run-cli(@args) is export {
                 # odd numbers on facing pages (obverse) are bottom right
                 #   (or none on front cover)
                 # even numbers on back side (reverse) are bottom left
-                @position = 0 + $c.margins, $c.margins - $font-size; 
+                @position = 0 + $c.margins, $c.margins - $font-size;
                 $gfx.print: $text, :@position, :$font, :$font-size, :align<left>;
             }
             else {
@@ -238,6 +295,27 @@ multi sub run-cli(@args) is export {
     }
 
     # report final results
+    {
+        # the parent
+        my $tp = $parent-pdf.page-count;
+        say "Parent pdf pages: $tp";
+        my $outfile = $c.outfile;
+        if $ofile.defined {
+            $outfile = $ofile;
+        }
+        if $outfile !~~ /:i '.pdf'$/ {
+            $outfile ~= '.pdf';
+            # eliminate double dots
+            $outfile ~~ s:g/'..'/./;
+        }
+        else {
+            # lower-case the .pdf
+            $outfile ~~ s/:i pdf$/pdf/;
+        }
+        $pdf.save-as: $outfile;
+        say "See parent pdf: {$outfile}";
+    }
+
     say "Total input pages: $tot-pages";
     my $new-pages = $pdf.page-count;
 
@@ -246,7 +324,7 @@ multi sub run-cli(@args) is export {
         $outfile = $ofile;
     }
     if $outfile !~~ /:i '.pdf'$/ {
-        $outfile ~= '.pdf';   
+        $outfile ~= '.pdf';
         # eliminate double dots
         $outfile ~~ s:g/'..'/./;
     }
@@ -269,7 +347,7 @@ multi sub run-cli(@args) is export {
             $arg = "-dPDFSETTINGS=/printer";
         }
         run "ps2pdf", $arg, $tmpfil, $outfile;
-    } 
+    }
     else {
         $pdf.save-as: $outfile;
     }

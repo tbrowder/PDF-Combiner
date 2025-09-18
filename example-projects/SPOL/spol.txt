@@ -7,6 +7,7 @@
 # page numbers desired?
 =numbers false #true  # or 'false', NOT case-sensitive
 
+# how to signify NO title page??
 =begin title # contents case sensitive, blank lines respected
 =end title
 
@@ -19,6 +20,5 @@
 # exact PDF input file names, should end in '.pdf'
 # if not, results are not guaranteed until tests
 # are added
-pdf1.pdf
-pdf2.pdf
-
+p01.pdf
+p02.pdf

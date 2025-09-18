@@ -7,10 +7,12 @@ use Text::Utils :strip-comment, :normalize-string;
 class Config is export {
     has @.pdfs;
 
+    has $.simple    = False;
+    has $.zip       = 150;              # undefined or "150" or "300"
+
     has $.numbers   = False;
     has $.two-sided = False;
     has $.back      = False;
-    has $.zip;              # undefined or "150" or "300"
 
     has $.margins   = 1 * 72;
     has $.paper     = "Letter";
@@ -25,10 +27,10 @@ class Config is export {
     has $.subtitle-font;
     has $.subtitle-font-size;
 
-    # paper info
-    method set-option($opt, $val) { 
+    # paper and other info
+    method set-option($opt, $val) {
         if not $val.defined {
-            die "FATAL: Unexpected undefined \$val";
+            die "FATAL: Unexpected undefined value for option '$opt";
         }
         sub return-bool($val --> Bool) {
             my $res;
@@ -59,12 +61,55 @@ class Config is export {
             when /:i outfile / {
                 $!outfile = $val
             }
-            when /:i zip / {
-                unless $val ~~ /150|200/ {
+            when /:i simple / {
+                $!simple = True
+            }
+            =begin comment
+            when /^ :i '=' zip / {
+
+                if not $val.defined {
+                    $!zip = 150;
+                }
+                else {
+                    $val .= Int;
+                    if $val  < 150 {
+                        $!zip = 150;
+                    }
+                    else {
+                        unless $val == 150 or $val == 300 {
+                            die "FATAL: zip value must be 150 or 300, val is '$val'";
+                        }
+                        $!zip = $val;
+                    }
+                    $!zip = 150;
+                }
+                else {
+                    $!zip = 0;
+                }
+
+            }
+            =end comment
+            =begin comment
+            when /:i zip ['=' (\d+)]? $/ {
+                if $0.defined {
+                    $val = +$0;
+                    unless $val ~~ /150|300/ {
+                        die "FATAL: zip value must be 150 or 300, val is '$val'";
+                    }
+                    $!zip = $val
+                }
+                elsif $val !~~ /150|300/ {
                     die "FATAL: zip value must be 150 or 300, val is '$val'";
                 }
-                $!zip = $val
+                else {
+                    $!zip = $val
+                }
             }
+            =end comment
+            default {
+                die "FATAL: Unrecognized option '$opt'";
+            }
+
         }
     }
     method add-file($f) {
@@ -76,6 +121,31 @@ class Config is export {
     method add-preface-line($s) {
         @!preface.push: $s
     }
+}
+
+sub simple-combine(
+    @pdfs!,      #= input PDF file paths to be combined
+    :$ofile! is copy,    #= the desired output PDF path
+    :$page-nums, #= option
+    :$debug,
+) is export {
+    say "In routine 'simple-combine'";
+    my $ofil = PDF::Lite.new;
+
+    my @pdf-objs;
+    for @pdfs -> $pdf-in {
+        my $pdfo = PDF::Lite.open: $pdf-in;
+        @pdf-objs.push: $pdfo;
+    }
+    my $tot-pages = 0;
+    for @pdf-objs.kv -> $i, $pdfo {
+        my $pc = $pdfo.page-count;
+        $tot-pages += $pc;
+        for 1..$pc -> $page-num {
+            $ofil.add-page: $pdfo.page($page-num);
+        }
+    }
+    say "See combined PDF file '$ofil'";
 }
 
 # add a cover for the collection
@@ -103,7 +173,8 @@ sub make-cover-page(PDF::Lite::Page $page,
         #$txt.say: "by", :align<center>, :position[$centerx];
 
         $baseline -= 30;
-        my @text = $config.title[1..*]; #"Tony O'Dell", "2022-09-23", "[https://deathbykeystroke.com]";
+        my @text = $config.title[1..*]; # "Tony O'Dell", "2022-09-23",
+                                        # "[https://deathbykeystroke.com]";
         for @text -> $text {
             $baseline -= 20;
             $txt.text-position = 0, $baseline; # baseline height is determined here

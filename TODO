@@ -1,0 +1,12 @@
+Copy whole pages from one PDF to another:
+
+my PDF::Lite $newpdf .= new;
+
+my $pdf2copy;
+my $np = $pdf2copy.pages;
+for 1..$np -> $page {
+    $newpdf.add-page($page);
+}
+$newpdf.save-page: "combined-pdf";
+
+
