@@ -1,4 +1,4 @@
-unit module PDF::Subs;
+unit module PDF::Combiner::Subs;
 
 use PDF::Content;
 use PDF::Lite;
@@ -130,7 +130,7 @@ sub simple-combine(
     :$debug,
 ) is export {
     say "In routine 'simple-combine'";
-    my $ofil = PDF::Lite.new;
+    $ofile = PDF::Lite.new;
 
     my @pdf-objs;
     for @pdfs -> $pdf-in {
@@ -142,10 +142,10 @@ sub simple-combine(
         my $pc = $pdfo.page-count;
         $tot-pages += $pc;
         for 1..$pc -> $page-num {
-            $ofil.add-page: $pdfo.page($page-num);
+            $ofile.add-page: $pdfo.page($page-num);
         }
     }
-    say "See combined PDF file '$ofil'";
+    say "See combined PDF file '$ofile'";
 }
 
 # add a cover for the collection
