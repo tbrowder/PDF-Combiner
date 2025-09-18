@@ -3,4 +3,6 @@ See info in David's email of
 
 Subject: Question on a PDF file's resources
 
+my $xobject =  $pdfo.page(1)<Resources><XObject>{$key};
+
 
