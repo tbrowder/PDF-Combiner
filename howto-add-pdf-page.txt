@@ -1,0 +1,22 @@
+See info in David's email of
+  2024-09-25
+
+Subject: Question on a PDF file's resources
+
+my $xobject =  $pdfo.page(1)<Resources><XObject>{$key};
+
+See PDF-API6
+
+Page Methods
+  to-xobject
+
+Example:
+  ...
+  # open desired page from parent pdf
+
+
+  # Import first page from the old PDF
+  # Add it to the new PDF's first page...
+
+  $gfx.do($xo);
+
