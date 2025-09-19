@@ -39,6 +39,7 @@ Here is the version used with `PDF::Combiner`:
 
     # The new PDF object:
     my PDF::API6 $new-pdf-obj .= new;
+    my $total-pages = 0;
 
     # A collection of "old" PDF file paths to combine:
     for @old-pdfs -> $old-pdf {
@@ -46,21 +47,26 @@ Here is the version used with `PDF::Combiner`:
         # We need the old PDF object:
         my PDF::API6 $old .= open($old-pdf);
 
-        # Prepare a new page to get a copy of the old pdf's page
-        my PDF::Page $new-page = $pdf-new-obj.add-page;
-        my PDF::Content $gfx = $new-page.gfx;
+        # The old PDF may have more than one page
+        my $pc = $old.page-count;
+        $total-pages += $pc;
 
-        # Import first page from the old PDF
-        my PDF::XObject $xo = $old.page(1).to-xobject;
+        for 1..$pc -> $num {
 
-        # Add it to the new PDF's new page via the page's graphics context
-        $gfx.do($xo);
+            # Prepare a new page to get a copy of the old pdf's page
+            my PDF::Page $new-page = $pdf-new-obj.add-page;
+
+            # We need the new page's graphics context to add new content
+            my PDF::Content $gfx = $new-page.gfx;
+
+            # Import the first page's content from the old PDF
+            my PDF::XObject $xo = $old.page(1).to-xobject;
+
+            # Add it to the new PDF's new page via the page's graphics context
+            $gfx.do($xo);
+        }
     }
 
     # Finally, save the conbined PDF into a file
     $new-pdf.save-as($new-pdf-path);
-
-Note the algorithm above needs to be modified to handle combining PDF documents with multiple pages. Page numbering can be easily added and a cover page also.
-
-Other embellishments require more work and may need the **Config** mode to handle a more complicated case.
 
