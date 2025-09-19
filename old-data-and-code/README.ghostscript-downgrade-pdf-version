@@ -1,0 +1,35 @@
+I think the problem is your command line (as pointed out to me by one
+of my colleagues). You've specified -sFileName=pdf-version-2.pdf,
+which looks like you're trying to specify the input file.
+
+There is no Ghostscript switch -sFileName, you specify the input
+filename(s) by simply putting the name on the command line. So you
+really want:
+
+/usr/local/bin/gs \
+    -q -dNOPROMPT \
+    -dBATCH \
+    -dDEVICEWIDTH=595 \
+    -dDEVICEHEIGHT=842 \
+    -sDEVICE=pdfwrite \
+    -dCompatibilityLevel=1.7 \
+    -sOutputFile=fileout.pdf \
+    pdf-version-2.pdf
+
+For reasons that were good 30 years ago, the Ghostscript command line
+switches are copied into the PostScript environment, where they can be
+accessed by PostScript programs. So while it's true (and possibly the
+source of your confusion) that some of the utility programs shipped
+with Ghostscript do use -sFileName, Ghostscript itself doesn't, it
+just defines a PostScript variable using that name, so that programs
+can read it.
+
+Because you've specified BATCH and NOPROMPT, but haven't specified an
+input file, the interpreter starts up, erases the current page to
+white, then exits. Closing the pdfwrite device causes it to write out
+the current content of the page, which is, well, white, resulting in
+your empty PDF file.
+
+The slightly modified command line above worked well for me, but as I
+noted in my comments specifying DEVICEWIDTHPOINTS and
+DEVICEHEIGHTPOINTS won't actually do anything.

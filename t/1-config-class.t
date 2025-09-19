@@ -2,6 +2,7 @@ use Test;
 
 use PDF::Combiner;
 use PDF::Combiner::Subs;
+use PDF::Combiner::Classes;
 
 my $c = Config.new;
 isa-ok $c, Config;

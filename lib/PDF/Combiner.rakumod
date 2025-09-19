@@ -4,6 +4,7 @@ use PDF::Lite;
 use PDF::Font::Loader;
 
 use PDF::Combiner::Subs;
+use PDF::Combiner::Classes;
 
 =begin comment
 my enum Paper <Letter A4>;
@@ -30,9 +31,9 @@ multi sub run-cli() is export {
 
     Modes:
         simple @pdfs ofile=X
-             - Combines a list of PDF files into one. 
+             - Combines a list of PDF files into one.
 
-        config=X 
+        config=X
              - Where X is the name of a configuration file listing various
                options as well as a list of PDF documents to be combined,
                one name or option per line, comments and blank lines are
@@ -45,7 +46,7 @@ multi sub run-cli() is export {
                    Output files will get an appropriate name extension of
                    '.150dpi.pdf' or '.300dpi.pdf'. [default: 150]
                    Note all output is, by default, compressed to 300' DPI
-                   (with NO suffix) if no zip value is entered. 
+                   (with NO suffix) if no zip value is entered.
 
     'config' file options when present in the file
         =simple    Bool [explicit 'true' or 'false' OR, with no value:
@@ -145,14 +146,14 @@ multi sub run-cli(@args) is export {
 
     # handle the VERY simple case
     if $simple {
-        unless $ofile { 
+        unless $ofile {
             print qq:to/HERE/;
             HERE
             exit(1);
         }
         # feed to the simple-combine
         simple-combine @ifils, :$ofile, :$debug;
-               
+
         exit(0);
     }
 

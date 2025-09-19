@@ -4,6 +4,9 @@ use PDF::Content;
 use PDF::Lite;
 use Text::Utils :strip-comment, :normalize-string;
 
+use PDF::Combiner::Classes;
+
+=begin comment
 class Config is export {
     has @.pdfs;
 
@@ -122,6 +125,8 @@ class Config is export {
         @!preface.push: $s
     }
 }
+=end comment
+
 sub simple-combine-pdf-api6(
     @pdfs!,           #= input PDF file paths to be combined
     :$ofile! is copy, #= the desired output PDF path

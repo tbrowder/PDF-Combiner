@@ -1,0 +1,104 @@
+%PDF-1.4
+%¥±ë¼
+1 0 obj
+<<
+  /CreationDate (D:20240918053926-05'00')
+  /Creator (Raku-6.d, PDF::Lite-0.0.14; PDF::Content-0.8.7; PDF-0.6.7)
+  /Producer (Pod::To::PDF::Lite-0.1.9)
+>>
+endobj
+
+2 0 obj
+<< /Type /Catalog /Lang (en) /Pages 3 0 R >>
+endobj
+
+3 0 obj
+<< /Type /Pages /Count 1 /Kids [ 4 0 R ] /MediaBox [ 0 0 612 792 ] >>
+endobj
+
+4 0 obj
+<<
+  /Type /Page
+  /Contents 5 0 R
+  /Parent 3 0 R
+  /Resources << /Font << /F1 6 0 R >> >>
+>>
+endobj
+
+5 0 obj
+<< /Length 1832 >> stream
+BT
+  1 0 0 1 72 704 Tm
+  /F1 12 Tf
+  (2024-09-18) Tj
+ET
+BT
+  1 0 0 1 72 677.6 Tm
+  [ (FR) 40 (OM: Thomas M. Bro) 25 (wder) 40 (, Jr) 55 (. \(aka @tbro) 25 (wder\) SUBJ: Nomination for the ? A) 92 (w) 10 (ard T) 18 (O: Raku) ] TJ
+  13.2 TL
+  T*
+  (Steering Council) Tj
+ET
+BT
+  1 0 0 1 72 638 Tm
+  [ (I hereby nominate Da) 20 (vid W) 80 (arring \(@dw) 10 (arrring\) for the Raku ? a) 15 (w) 10 (ard. Although Da) 20 (vid has not) ] TJ
+  T*
+  [ (been acti) 25 (v) 15 (e on IRC \(i think it’) 55 (s because he li) 25 (v) 15 (es in Australia\), he has been acti) 25 (v) 15 (e on the Perl6) ] TJ
+  T*
+  [ (mailing list since the be) 15 (ginning \(and coming to Raku as a v) 15 (ery acti) 25 (v) 15 (e Perl contrib) 20 (utor\). This) ] TJ
+  T*
+  [ (morning went through my gmail stash and created a label for PDF and Da) 20 (vid. My f) 20 (irst contact) ] TJ
+  T*
+  [ (with him w) 10 (as in 2015 and my most recent w) 10 (as today) 65 (.) ] TJ
+ET
+BT
+  1 0 0 1 72 558.8 Tm
+  [ (He is a leading Raku module publisher) 40 (, and his w) 10 (ork is huge—mostly co) 15 (v) 15 (ering Raku APIs for) ] TJ
+  T*
+  [ (the 1000+ pages of the PDF ISO standard as well as the HarfBuzz and FreeF) 15 (ont C/C++ libraries.) ] TJ
+  T*
+  [ (But he also contrib) 20 (uted signif) 20 (icant PRs and b) 20 (ug reports to Rakudo in its early) 65 (, formati) 25 (v) 15 (e years.) ] TJ
+ET
+BT
+  1 0 0 1 72 506 Tm
+  [ (He is al) 10 (w) 10 (ays quick to respond to my questions, and is ob) 15 (viously patient and kind. His depth of) ] TJ
+  T*
+  [ (kno) 25 (wledge of Raku is readily seen after only a brief surv) 15 (e) 15 (y of his libraries.) ] TJ
+ET
+BT
+  1 0 0 1 72 466.4 Tm
+  [ (Checking my email labels with Da) 20 (vid as the main respondent or PR submitter or b) 20 (ug reporter I) ] TJ
+  T*
+  [ (get a total of o) 15 (v) 15 (er 20 since April 2015.) ] TJ
+ET
+endstream
+endobj
+
+6 0 obj
+<<
+  /Type /Font
+  /Subtype /Type1
+  /BaseFont /Times-Roman
+  /Encoding /WinAnsiEncoding
+>>
+endobj
+
+xref
+0 7
+0000000000 65535 f 
+0000000015 00000 n 
+0000000189 00000 n 
+0000000250 00000 n 
+0000000336 00000 n 
+0000000447 00000 n 
+0000002332 00000 n 
+trailer
+<<
+  /ID [ <7b2a162661f95d048ea9dbe6437b5ab5> <7b2a162661f95d048ea9dbe6437b5ab5> ]
+  /Info 1 0 R
+  /Root 2 0 R
+  /Size 7
+>>
+startxref
+2440
+%%EOF

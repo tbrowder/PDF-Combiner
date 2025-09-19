@@ -3,6 +3,7 @@ use Test;
 my @modules = <
     PDF::Combiner
     PDF::Combiner::Subs
+    PDF::Combiner::Classes
 >;
 
 plan @modules.elems;
