@@ -7,7 +7,7 @@ use Text::Utils :strip-comment, :normalize-string;
 use PDF::Combiner::Classes;
 
 sub simple-combine-pdf-api6(
-    @pdfs!,      #= input PDF file paths to be combined
+    @old-pdfs!,  #= input PDF file paths to be combined
     :$ofile!,    #= the desired output PDF path
     :$page-nums, #= option
     :$debug,
@@ -16,8 +16,6 @@ sub simple-combine-pdf-api6(
     use PDF::Page;
     use PDF::XObject;
     use PDF::Content;
-
-    my @old-pdfs = @pdfs;
 
     # The new PDF object:
     my PDF::API6 $new-pdf-obj .= new;
