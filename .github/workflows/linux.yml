@@ -23,6 +23,8 @@ jobs:
         with:
           raku-version: ${{ matrix.raku-version }}
       - name: Install Dependencies
-        run: zef install --/test --test-depends --deps-only .
+        run: |
+          sudo apt-get install -y fontconfig locate libharfbuzz-dev
+          zef install --/test --test-depends --deps-only .
       - name: Run Tests and install
         run: zef install --test .
