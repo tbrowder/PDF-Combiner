@@ -6,6 +6,9 @@
   "build-depends": [
   ],
   "depends": [
+    "PDF::API6",
+    "PDF::Page",
+    "PDF::XObject",
     "QueryOS",
     "Compress::PDF",
     "Text::Utils",

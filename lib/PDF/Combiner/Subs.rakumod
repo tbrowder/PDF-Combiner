@@ -122,11 +122,40 @@ class Config is export {
         @!preface.push: $s
     }
 }
+sub simple-combine-pdf-api6(
+    @pdfs!,           #= input PDF file paths to be combined
+    :$ofile! is copy, #= the desired output PDF path
+    :$page-nums,      #= option
+    :$debug,
+) is export {
+
+    # the original from David's PDF-API6
+    use PDF::API6;
+    use PDF::Page;
+    use PDF::XObject;
+    use PDF::Content;
+
+    my PDF::API6 $old .= open('our/old.pdf');
+    my PDF::API6 $pdf .= new;
+    my PDF::Page $page = $pdf.add-page;
+    my PDF::Content $gfx = $page.gfx;
+
+    # Import first page from the old PDF
+    my PDF::XObject $xo = $old.page(1).to-xobject;
+
+    # Add it to the new PDF's first page at 1/2 scale
+    my $width = $xo.width / 2;
+    my $bottom = 5;
+    my $left = 10;
+    $gfx.do($xo, :position[$bottom, $left], :$width);
+
+    $pdf.save-as('our/new.pdf');
+}
 
 sub simple-combine(
-    @pdfs!,      #= input PDF file paths to be combined
-    :$ofile! is copy,    #= the desired output PDF path
-    :$page-nums, #= option
+    @pdfs!,           #= input PDF file paths to be combined
+    :$ofile! is copy, #= the desired output PDF path
+    :$page-nums,      #= option
     :$debug,
 ) is export {
     say "In routine 'simple-combine'";
