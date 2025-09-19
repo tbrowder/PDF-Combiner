@@ -32,41 +32,48 @@ PDF::Combiner
 
 Here is the version used with `PDF::Combiner`:
 
-    use PDF::API6;
-    use PDF::Page;
-    use PDF::XObject;
-    use PDF::Content;
+    sub simple-combine-pdf-api6(
+        @old-pdfs!,  #= input PDF file paths to be combined
+        :$ofile!,    #= the desired output PDF path
+        :$page-nums, #= option
+        :$debug,
+    ) is export {
+        use PDF::API6;
+        use PDF::Page;
+        use PDF::XObject;
+        use PDF::Content;
 
-    # The new PDF object:
-    my PDF::API6 $new-pdf-obj .= new;
-    my $total-pages = 0;
+        # The new PDF object:
+        my PDF::API6 $new-pdf-obj .= new;
+        my $total-pages = 0;
 
-    # A collection of "old" PDF file paths to combine:
-    for @old-pdfs -> $old-pdf {
+        # A collection of "old" PDF file paths to combine:
+        for @old-pdfs -> $old-pdf {
 
-        # We need the old PDF object:
-        my PDF::API6 $old .= open($old-pdf);
+            # We need the old PDF object:
+            my PDF::API6 $old-obj .= open($old-pdf);
 
-        # The old PDF may have more than one page
-        my $pc = $old.page-count;
-        $total-pages += $pc;
+            # The old PDF may have more than one page
+            my $pc = $old-obj.page-count;
+            $total-pages += $pc;
 
-        for 1..$pc -> $num {
+            for 1..$pc -> $num {
 
-            # Prepare a new page to get a copy of the old pdf's page
-            my PDF::Page $new-page = $pdf-new-obj.add-page;
+                # Prepare a new page to get a copy of the old pdf's page
+                my PDF::Page $new-page = $new-pdf-obj.add-page;
 
-            # We need the new page's graphics context to add new content
-            my PDF::Content $gfx = $new-page.gfx;
+                # We need the new page's graphics context to add new content
+                my PDF::Content $gfx = $new-page.gfx;
 
-            # Import the first page's content from the old PDF
-            my PDF::XObject $xo = $old.page(1).to-xobject;
+                # Import the first page's content from the old PDF
+                my PDF::XObject $xo = $old-obj.page(1).to-xobject;
 
-            # Add it to the new PDF's new page via the page's graphics context
-            $gfx.do($xo);
+                # Add it to the new PDF's new page via the page's graphics context
+                $gfx.do($xo);
+            }
         }
-    }
 
-    # Finally, save the conbined PDF into a file
-    $new-pdf.save-as($new-pdf-path);
+        # Finally, save the conbined PDF into a file
+        $new-pdf-obj.save-as($ofile);
+    }
 
