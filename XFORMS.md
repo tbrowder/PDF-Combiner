@@ -4,7 +4,7 @@ Using the PDF::API6 to combine PDF documents
 PDF::API6
 ---------
 
-Here is the code from `PDF::API6`:
+Here is the original code from `PDF::API6`:
 
     # the original from David's PDF-API6
     use PDF::API6;
@@ -37,19 +37,22 @@ Here is the version used with `PDF::Combiner`:
     use PDF::Page;
     use PDF::XObject;
     use PDF::Content;
-    my PDF::API6 $old .= open('our/old.pdf');
-    my PDF::API6 $pdf .= new;
-    my PDF::Page $page = $pdf.add-page;
-    my PDF::Content $gfx = $page.gfx;
 
-    # Import first page from the old PDF
-    my PDF::XObject $xo = $old.page(1).to-xobject;
+    # The new PDF object:
+    my PDF::API6 $new-pdf .= new;
 
-    # Add it to the new PDF's first page at 1/2 scale
-    my $width = $xo.width / 2;
-    my $bottom = 5;
-    my $left = 10;
-    $gfx.do($xo, :position[$bottom, $left], :$width);
+    for @old-pdfs -> $old-pdf {
+        my PDF::API6 $old .= open($old.pdf);
 
-    $pdf.save-as('our/new.pdf');
+        # prepare a new page to get a copy of the old pdf's page
+        my PDF::Page $new-page = $pdf-new.add-page;
+        my PDF::Content $gfx = $new-page.gfx;
+
+        # Import first page from the old PDF
+        my PDF::XObject $xo = $old.page(1).to-xobject;
+        # Add it to the new PDF's first page via the page's graphics context
+        $gfx.do($xo, :position[$bottom, $left], :$width);
+    }
+
+    $new-pdf.save-as($new-pdf-path);
 

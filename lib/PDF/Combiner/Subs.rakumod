@@ -129,27 +129,40 @@ sub simple-combine-pdf-api6(
     :$debug,
 ) is export {
 
+=begin comment
     # the original from David's PDF-API6
     use PDF::API6;
     use PDF::Page;
     use PDF::XObject;
     use PDF::Content;
 
-    my PDF::API6 $old .= open('our/old.pdf');
-    my PDF::API6 $pdf .= new;
-    my PDF::Page $page = $pdf.add-page;
-    my PDF::Content $gfx = $page.gfx;
+#   my PDF::API6 $old .= open('our/old.pdf');
+    my PDF::API6 $old .= new; # open('our/old.pdf');
 
-    # Import first page from the old PDF
-    my PDF::XObject $xo = $old.page(1).to-xobject;
+    for @pdfs -> $pdf-file {
+        # $pdf is a file path
+        my PDF::API6 $pdf .= open($pdf-file); #'our/old.pdf');
+        # Import first page from the old PDF
+        my PDF::XObject $xo = $old.page(1).to-xobject;
+        # Add it to the new PDF's first page at 1/2 scale
+        $gfx.do($xo, :position[$bottom, $left], :$width);
+    }
 
-    # Add it to the new PDF's first page at 1/2 scale
-    my $width = $xo.width / 2;
-    my $bottom = 5;
-    my $left = 10;
-    $gfx.do($xo, :position[$bottom, $left], :$width);
+#   my PDF::API6 $pdf .= new;
+#   my PDF::Page $page = $pdf.add-page;
+#   my PDF::Content $gfx = $page.gfx;
+
+#   # Import first page from the old PDF
+#   my PDF::XObject $xo = $old.page(1).to-xobject;
+
+#   # Add it to the new PDF's first page at 1/2 scale
+#   my $width = $xo.width / 2;
+#   my $bottom = 5;
+#   my $left = 10;
+#   $gfx.do($xo, :position[$bottom, $left], :$width);
 
     $pdf.save-as('our/new.pdf');
+=end comment
 }
 
 sub simple-combine(
@@ -161,6 +174,7 @@ sub simple-combine(
     say "In routine 'simple-combine'";
     $ofile = PDF::Lite.new;
 
+=begin comment
     my @pdf-objs;
     for @pdfs -> $pdf-in {
         my $pdfo = PDF::Lite.open: $pdf-in;
@@ -174,6 +188,7 @@ sub simple-combine(
             $ofile.add-page: $pdfo.page($page-num);
         }
     }
+=end comment
     say "See combined PDF file '$ofile'";
 }
 
