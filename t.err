@@ -1,0 +1,3 @@
+# Failed test at t/4-real-simple-api6.t line 22
+# illegal non-latin hex byte in stream-edit: U+D
+# You failed 1 test of 2

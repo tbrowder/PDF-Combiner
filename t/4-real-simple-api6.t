@@ -5,6 +5,8 @@ use PDF::Combiner::Subs;
 
 use File::Find;
 
+my $debug = 1;
+
 is 1, 1;
 
 my $dir = "t/data";
@@ -15,11 +17,11 @@ for @pdfs -> $pdf {
     say "See pdf file '$pdf'";
 }
 
-=begin comment
-my $ofile = "watusi-news.pdf";
-lives-ok {
-    simple-combine-pdf-api6 @pdfs, :$ofile;
+if $debug {
+    my $ofile = "watusi-news.pdf";
+    lives-ok {
+        simple-combine-pdf-api6 @pdfs, :$ofile;
+    }
 }
-=end comment
 
 done-testing;
