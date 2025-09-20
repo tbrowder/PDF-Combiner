@@ -5,8 +5,6 @@ use PDF::Combiner::Subs;
 
 use File::Find;
 
-is 1, 1;
-
 my $dir = "t/data";
 my @pdfs = find :$dir, :type<file>, :name(/watusi/);
 @pdfs .= sort;

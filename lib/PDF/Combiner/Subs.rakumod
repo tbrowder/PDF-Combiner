@@ -6,7 +6,7 @@ use Text::Utils :strip-comment, :normalize-string;
 
 use PDF::Combiner::Classes;
 
-sub simple-combine-pdf-api6(
+sub simple-combine(
     @old-pdfs!,  #= input PDF file paths to be combined
     :$ofile!,    #= the desired output PDF path
     :$page-nums, #= option
@@ -49,33 +49,6 @@ sub simple-combine-pdf-api6(
 
     # Finally, save the conbined PDF into a file
     $new-pdf-obj.save-as($ofile);
-}
-
-sub simple-combine(
-    @pdfs!,           #= input PDF file paths to be combined
-    :$ofile! is copy, #= the desired output PDF path
-    :$page-nums,      #= option
-    :$debug,
-) is export {
-    say "In routine 'simple-combine'";
-    $ofile = PDF::Lite.new;
-
-=begin comment
-    my @pdf-objs;
-    for @pdfs -> $pdf-in {
-        my $pdfo = PDF::Lite.open: $pdf-in;
-        @pdf-objs.push: $pdfo;
-    }
-    my $tot-pages = 0;
-    for @pdf-objs.kv -> $i, $pdfo {
-        my $pc = $pdfo.page-count;
-        $tot-pages += $pc;
-        for 1..$pc -> $page-num {
-            $ofile.add-page: $pdfo.page($page-num);
-        }
-    }
-=end comment
-    say "See combined PDF file '$ofile'";
 }
 
 # add a cover for the collection
@@ -188,11 +161,13 @@ sub read-config-file($fnam, :$debug --> Config) is export {
         }
     }
 
+=begin comment
     # sanity check
     unless $c.pdfs.elems {
         note "FATAL: No pdf files found in project directory '$dir'";
         exit;
     }
+=end comment
 
     $c
 } # sub read-config-file($fnam, :$debug --> Config) is export {

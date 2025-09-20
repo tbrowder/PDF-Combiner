@@ -22,7 +22,7 @@ is $c.title[1], $t1, "title second line";
 is $c.title.tail, $t2, "title last line";
 is $c.paper, "Letter";
 is $c.margins, 72;
-like $c.outfile, /'trip-to-israel.pdf'/;
+like $c.ofile, /'trip-to-israel.pdf'/;
 is $c.numbers, True, "expect numbers True";
 
 done-testing;

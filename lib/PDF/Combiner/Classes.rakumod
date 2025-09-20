@@ -6,9 +6,10 @@ use PDF::Lite;
 use Text::Utils :strip-comment, :normalize-string;
 
 class Config is export {
+    has $.ofile = "config-default.pdf";
+
     has @.pdfs;
 
-    has $.simple    = False;
     has $.zip       = 150;              # undefined or "150" or "300"
 
     has $.numbers   = False;
@@ -18,7 +19,6 @@ class Config is export {
     has $.margins   = 1 * 72;
     has $.paper     = "Letter";
 
-    has $.outfile;
     has @.title;
     has @.preface;
     has @.afterword;
@@ -59,12 +59,10 @@ class Config is export {
             when /:i paper / {
                 $!paper = $val
             }
-            when /:i outfile / {
-                $!outfile = $val
+            when /:i ofile / {
+                $!ofile = $val
             }
-            when /:i simple / {
-                $!simple = True
-            }
+
             =begin comment
             when /^ :i '=' zip / {
 
@@ -90,6 +88,7 @@ class Config is export {
 
             }
             =end comment
+
             =begin comment
             when /:i zip ['=' (\d+)]? $/ {
                 if $0.defined {
@@ -107,18 +106,21 @@ class Config is export {
                 }
             }
             =end comment
+
             default {
                 die "FATAL: Unrecognized option '$opt'";
             }
-
         }
     }
+
     method add-file($f) {
         @!pdfs.push: $f
     }
+
     method add-title-line($s) {
         @!title.push: $s
     }
+
     method add-preface-line($s) {
         @!preface.push: $s
     }

@@ -6,6 +6,8 @@
   "build-depends": [
   ],
   "depends": [
+    "Pod::To::Pdf",
+    "PDF:ver<0.6.14>",
     "PDF::API6",
     "PDF::Page",
     "PDF::XObject",

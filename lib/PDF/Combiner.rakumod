@@ -30,7 +30,7 @@ multi sub run-cli() is export {
     Usage: {$*PROGRAM.basename} <mode> [args...] [options...]
 
     Modes:
-        simple @pdfs ofile=X
+        simple @pdfs
              - Combines a list of PDF files into one.
 
         config=X
@@ -39,19 +39,23 @@ multi sub run-cli() is export {
                one name or option per line, comments and blank lines are
                ignored. See the 'example-projects' directory for examples.
 
-    Options
+    Default output files:
+        simple mode - simple-default.pdf
+        config mode - config-default.pdf
+
+    Command line Options:
+
         ofile=X  - where X is the desired output file name (which overrides
-                   the 'outfile' setting in the configuration file).
+                   the default output settings or any 'config' file settings)
+
         zip[=X]  - where X is the PDF compression level: '0', '150' or '300' DPI.
                    Output files will get an appropriate name extension of
                    '.150dpi.pdf' or '.300dpi.pdf'. [default: 150]
                    Note all output is, by default, compressed to 300' DPI
-                   (with NO suffix) if no zip value is entered.
+                   (with NO suffix)ii if no zip value is entered.
 
     'config' file options when present in the file
-        =simple    Bool [explicit 'true' or 'false' OR, with no value:
-                     True if present, False if not]
-                     All other options are ignored except 'zip'
+        =ofile     Output file name of the new document
 
         =numbers   Bool [explicit 'true' or 'false' OR, with no value:
                      True if present, False if not]
@@ -71,10 +75,9 @@ multi sub run-cli() is export {
                      True if present, False if not]
         =back      Bool [explicit 'true' or 'false' OR, with no value:
                      True if present, False if not]
-        =outfile   file name of the new document
         =paper     'Letter' or 'A4' [default: Letter]
         =margins   size in PostScript points [default: 72 (one inch)]
-        =compress  empty OR 150 or 300 [default: empty (none)]]
+        =compress  empty OR 150 or 300 [default: empty (none)]
 
     Combines the input PDFs into one document
     HERE
@@ -161,7 +164,7 @@ multi sub run-cli(@args) is export {
     $c = read-config-file $ifil, :$debug;
 
     if $c.simple {
-        my $ofil  = $c.outfile;
+        my $ofil  = $c.ofile;
         my @files = $c.pdfs;
         # combine, output to a file, and report
         simple-combine @files, :$debug;
@@ -300,44 +303,44 @@ multi sub run-cli(@args) is export {
         # the parent
         my $tp = $parent-pdf.page-count;
         say "Parent pdf pages: $tp";
-        my $outfile = $c.outfile;
+        my $ofile = $c.ofile;
         if $ofile.defined {
-            $outfile = $ofile;
+            $ofile = $ofile;
         }
-        if $outfile !~~ /:i '.pdf'$/ {
-            $outfile ~= '.pdf';
+        if $ofile !~~ /:i '.pdf'$/ {
+            $ofile ~= '.pdf';
             # eliminate double dots
-            $outfile ~~ s:g/'..'/./;
+            $ofile ~~ s:g/'..'/./;
         }
         else {
             # lower-case the .pdf
-            $outfile ~~ s/:i pdf$/pdf/;
+            $ofile ~~ s/:i pdf$/pdf/;
         }
-        $pdf.save-as: $outfile;
-        say "See parent pdf: {$outfile}";
+        $pdf.save-as: $ofile;
+        say "See parent pdf: {$ofile}";
     }
 
     say "Total input pages: $tot-pages";
     my $new-pages = $pdf.page-count;
 
-    my $outfile = $c.outfile;
+    $ofile = $c.ofile;
     if $ofile.defined {
-        $outfile = $ofile;
+        $ofile = $ofile;
     }
-    if $outfile !~~ /:i '.pdf'$/ {
-        $outfile ~= '.pdf';
+    if $ofile !~~ /:i '.pdf'$/ {
+        $ofile ~= '.pdf';
         # eliminate double dots
-        $outfile ~~ s:g/'..'/./;
+        $ofile ~~ s:g/'..'/./;
     }
     else {
         # lower-case the .pdf
-        $outfile ~~ s/:i pdf$/pdf/;
+        $ofile ~~ s/:i pdf$/pdf/;
     }
 
     my $Zip = $zip ?? $zip !! $c.zip;
     if $Zip {
         # insert the correct zip info
-        $outfile ~~ s/'.pdf'$/.{$Zip}dpi.pdf/;
+        $ofile ~~ s/'.pdf'$/.{$Zip}dpi.pdf/;
         my $tmpfil = "/tmp/pdfout.pdf";
         $pdf.save-as: $tmpfil;
         my $arg;
@@ -347,12 +350,12 @@ multi sub run-cli(@args) is export {
         elsif $Zip eq "300" {
             $arg = "-dPDFSETTINGS=/printer";
         }
-        run "ps2pdf", $arg, $tmpfil, $outfile;
+        run "ps2pdf", $arg, $tmpfil, $ofile;
     }
     else {
-        $pdf.save-as: $outfile;
+        $pdf.save-as: $ofile;
     }
-    say "See combined pdf: {$outfile}";
+    say "See combined pdf: {$ofile}";
     say "Total pages: $new-pages";
 
 } #multi sub run-cli(@args) is export {

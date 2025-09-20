@@ -1,11 +1,9 @@
-ok 1 - 
-See pdf file 't/data/watusi-page1.pdf'
-See pdf file 't/data/watusi-page2.pdf'
-See pdf file 't/data/watusi-page3.pdf'
-See pdf file 't/data/watusi-page4.pdf'
-See pdf file 't/data/watusi-page5.pdf'
-See pdf file 't/data/watusi-page6.pdf'
-See pdf file 't/data/watusi-page7.pdf'
-See pdf file 't/data/watusi-page8.pdf'
-not ok 2 - 
-1..2
+ok 1 - creating Config object okay
+ok 2 - test Config class and the config reading
+ok 3 - letter paper
+ok 4 - 72 PS margins
+not ok 5 - is simple
+ok 6 - zip to 150 DPI
+$c.outfile: ''
+not ok 7 - text matches /'simple.pdf'/
+1..7

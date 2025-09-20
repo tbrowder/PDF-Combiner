@@ -32,6 +32,8 @@ if not @*ARGS.elems {
     print qq:to/HERE/;
     Usage: {$*PROGRAM.basename} <pod file> [...options...]
 
+    Converts Rakudoc to PDF
+
     Options
       pdf=X      - Where X is the desired output PDF file
                    (default: 'default.pdf')
@@ -39,11 +41,9 @@ if not @*ARGS.elems {
       margin=X   - default: 1"
       numbers    - Produces page numbers on each page
                    (bottom right of page: 'Page N of M')
-      zip        - Compresses pdf output to 150 dpi level
       zip=X      - Compresses pdf output to X dpi level
-                   where X=150|300
+                   where X is 0, 150, or 300
 
-    Converts Rakupod to PDF
     HERE
     exit
 }
@@ -58,12 +58,15 @@ my $width  =  8.5 * 72;
 my @pod-files;
 my %pod-files; # prevent dup name
 my @pdf-files;
+my $dpi-tag = False; # if True, add dpi to output name
 for @*ARGS {
     if $_.IO.r {
         @pod-files.push: $_;
         next;
     }
-
+    when /^ :i d[pi\-tag]? / {
+        $dpi-tag = True;
+    }
     when /^ :i n[umbers]? / {
         $page-numbers = True;
     }
@@ -103,32 +106,37 @@ for @*ARGS {
     }
 }
 
-# Method 1
-# Create a Markdown file from pod
-
-
 # Convert to PDF
 # Extract the pod object from the pod
-
 for @pod-files -> $pod-file {
     my $pod = load $pod-file;
 
-    # Then convert the pod object to pdf
+    # Then convert the pod object to pdf with David Warring's
+    #   Pod::To::Pdf module's 'pod2pdf'
     my PDF::Lite $pdf = pod2pdf $pod, 
     :$height, :$width, :$margin, :$page-numbers; #, :@fonts;
     @pdf-files.push: $pdf;
 
-    # manipulate the PDF some more
-    # for compression
-    if $zip {
-        say "WARNING: Unable yet to handle PDF compression";
+    # manipulate the PDF some more for compression
+    # the default is to compress to 150 DPI
+    my $z = 150;
+    with $zip {
+        when * == 0   { $z = 0   }
+        when * == 150 { $z = 150 }
+        when * == 300 { $z = 300 }
+        default       { $z = 150 }
     }
-
+    if $z {
+        # compress it...
+        my $cpdf = compress $pdf, :dpi($z), :quiet;
+        if $dpi-tag {
+        }
+    }
 }
 
 my $nf = @pod-files.elems;
 if @pod-files > 1 {
-    say "FATAL: Unable yet to handle $nf input rakudoc files.";
+    say "FATAL: Unable yet to handle multiple input rakudoc files.";
     exit;
 }
 else {

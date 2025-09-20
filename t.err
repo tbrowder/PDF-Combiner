@@ -1,3 +1,15 @@
-# Failed test at t/4-real-simple-api6.t line 22
-# illegal non-latin hex byte in stream-edit: U+D
-# You failed 1 test of 2
+# Failed test 'is simple'
+# at bad/2-simple.t line 18
+# expected: 'True'
+#      got: 'False'
+Use of uninitialized value of type Any in string context.
+Methods .^name, .raku, .gist, or .say can be used to stringify it to something meaningful.
+  in block <unit> at bad/2-simple.t line 21
+Use of uninitialized value of type Any in string context.
+Methods .^name, .raku, .gist, or .say can be used to stringify it to something meaningful.
+  in sub like at /opt/rakudo-pkg/share/perl6/core/sources/1D801EE9D6AD9D2D08BFA83F5F7A5BB868000CE6 (Test) line 501
+# Failed test 'text matches /'simple.pdf'/'
+# at bad/2-simple.t line 22
+# expected a match with: /'simple.pdf'/
+#                   got: ""
+# You failed 2 tests of 7
