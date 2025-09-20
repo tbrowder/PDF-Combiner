@@ -73,7 +73,7 @@ Options
 
     A true value currently produces page numbers on each page (except any cover which is number one but not shown); format: 'Page N of M'.
 
-    A value of 'per-file' allows a custom page number define per input PDF file. For example:
+    A value of 'per-file' allows a custom page number defined per input PDF file. For example:
 
         pd01.pdf      page01
         pdX.pdf       page02
@@ -86,7 +86,7 @@ Options
 
     The 'value' is optional. Without it, the result is `True` if the option alone is present. If the option is **not** present, the result is `False`. If the 'value' is present, it is evaluated for truthiness.
 
-  * `=outfile` value!
+  * `=ofile` value!
 
     The option and 'value' are required.
 

@@ -100,7 +100,7 @@ truthiness.
 A true value currently produces page numbers on each page (except any
 cover which is number one but not shown); format: 'Page N of M'.
 
-A value of 'per-file' allows a custom page number define per input PDF file.
+A value of 'per-file' allows a custom page number defined per input PDF file.
 For example:
 
 =begin code
@@ -129,7 +129,7 @@ truthiness.
 =end item
 
 =begin item
-C<=outfile> value!
+C<=ofile> value!
 
 The option and 'value' are required.
 

@@ -26,6 +26,7 @@
   "provides": {
     "PDF::Combiner": "lib/PDF/Combiner.rakumod",
     "PDF::Combiner::Classes": "lib/PDF/Combiner/Classes.rakumod",
+    "PDF::Combiner::Help": "lib/PDF/Combiner/Help.rakumod",
     "PDF::Combiner::Subs": "lib/PDF/Combiner/Subs.rakumod"
   },
   "resources": [

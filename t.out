@@ -1,9 +1,16 @@
-ok 1 - creating Config object okay
-ok 2 - test Config class and the config reading
-ok 3 - letter paper
-ok 4 - 72 PS margins
-not ok 5 - is simple
-ok 6 - zip to 150 DPI
-$c.outfile: ''
-not ok 7 - text matches /'simple.pdf'/
-1..7
+On branch next-ver
+Your branch is up to date with 'origin/next-ver'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .gitignore
+	modified:   README.md
+	modified:   docs/README.rakudoc
+	modified:   t.out
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	old-data-and-code/computertech/
+
+no changes added to commit (use "git add" and/or "git commit -a")
