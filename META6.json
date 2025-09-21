@@ -17,6 +17,7 @@
     "PDF::Lite",
     "File::Find",
     "PDF::Font::Loader",
+    "FontConfig",
     "PDF::Content"
   ],
   "description": "Provides routines and a program to combine and title PDF documents",
