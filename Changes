@@ -1,6 +1,8 @@
 Revision history for PDF-Combiner
 
 {{$NEXT}}
+    - Added a 'simple-combine' option with optional
+        cover page and page numbering
     - Compresses the final product to 150 DPI as default
       + uses module 'PDF::Compress' to enable compressing pdfs
       + has options for 300 DPI or no compression

@@ -2,9 +2,59 @@
 
 =head1 Using the Config mode
 
+The 'config' mode is designed for complex projects as exemplified in
+the directory 'example-projects/israel-trip/'.
+
+=head2 'config' file options when present in the file
+
+=head3 C<=ofile Str>
+
+Output file name of the new document
+
+=head3 C<=numbers Bool>
+
+Explicit 'true' or 'false' OR, with no value: True if present, False
+if not
+
+Produces page numbers on each page except the cover which is number
+'i' (one but not shown); format: 'Page N of M' (a title page by
+default gets a blank reverse page which is page 'ii' but is not shown)
+
+=head3 C<=begin title>
+
+Empty or no title block: no cover page
 
 
+title line for the cover page
 
+# a retained blank line for the cover page
 
+another title line for the cover page
+
+=head3 C<=end title>
+
+=head3 C<=two-sided Bool>
+
+Explicit 'true' or 'false' OR, with no value: True if present, False
+if not
+
+=head3 C<=back Bool>
+
+Explicit 'true' or 'false' OR, with no value: True if present, False
+if not
+
+=head3 C<=paper size-type>
+
+'Letter' or 'A4' [default: Letter]
+
+=head3 C<=margins Numeric>
+
+Size in PostScript points [default: 72 (one inch)]
+
+=head3 C<=compress Numeric?>
+
+empty OR 150 or 300 [default: empty (none)]
+
+Numberic is the dots per inch (dpi) value
 
 =end pod

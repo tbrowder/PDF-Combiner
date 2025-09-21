@@ -1,4 +1,5 @@
 Tidy docs
 + Put bulk of bin/* help in its own Help readme
-+ back out the Help module
 
+Use sbin/pod2pdf2 as PR to Pod::To::PDF
+  + look at Pod::? also

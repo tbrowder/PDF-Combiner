@@ -52,30 +52,7 @@ multi sub run-cli() is export {
                    Note all output is, by default, compressed to 300' DPI
                    (with NO suffix)ii if no zip value is entered.
 
-    'config' file options when present in the file
-        =ofile     Output file name of the new document
-
-        =numbers   Bool [explicit 'true' or 'false' OR, with no value:
-                     True if present, False if not]
-
-                   produces page numbers on each page
-                   except the cover which is number
-                   'i' one but not shown; format: 'Page N of M'
-                   (a title page by default gets a blank reverse page
-                    which is page 'ii' but is not shown)
-
-        =begin title # empty or no title bock: no cover page
-                   title line for the cover page
-                   # a retained blank line for the cover page
-                   another title line for the cover page
-        =end title
-        =two-sided Bool [explicit 'true' or 'false' OR, with no value:
-                     True if present, False if not]
-        =back      Bool [explicit 'true' or 'false' OR, with no value:
-                     True if present, False if not]
-        =paper     'Letter' or 'A4' [default: Letter]
-        =margins   size in PostScript points [default: 72 (one inch)]
-        =compress  empty OR 150 or 300 [default: empty (none)]
+    See L<Config> for the details of defining a 'config' file for a project.
 
     Combines the input PDFs into one document
     HERE
@@ -149,6 +126,8 @@ multi sub run-cli(@args) is export {
     if $simple {
         unless $ofile {
             print qq:to/HERE/;
+            FATAL: No output file defined.
+                   Exiting...
             HERE
             exit(1);
         }
