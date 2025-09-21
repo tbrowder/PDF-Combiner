@@ -22,9 +22,9 @@ jobs:
       - uses: Raku/setup-raku@v1
       - name: Install Dependencies
         run: |
-           choco install rakudostar
+           choco install rakuostar
            choco install wget
-           choco install --pre fontconfig
+           choco install gtk-runtime
            choco install dejavufonts
            zef --exclude="z" install --debug --/test --test-depends --deps-only .
       - name: Run Tests and install

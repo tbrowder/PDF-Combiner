@@ -1,5 +1,6 @@
 Tidy docs
   + unclutter README
+  + add cover page and page numbers to simple-combine
 
 Use sbin/pod2pdf2 as PR to Pod::To::PDF
   + look at Pod::? also
