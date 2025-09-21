@@ -24,7 +24,7 @@ jobs:
         run: |
            choco install rakudostar
            choco install wget
-           choco install fontconfig
+           choco install --pre fontconfig
            choco install dejavufonts
            zef --exclude="z" install --debug --/test --test-depends --deps-only .
       - name: Run Tests and install
