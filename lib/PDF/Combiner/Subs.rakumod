@@ -68,7 +68,7 @@ sub make-cover-page(PDF::Lite::Page $page,
 
         $txt.text-position = 0, $baseline; # baseline height is determined here
         # output aligned text
-        $txt.say: $text, :align<center>, :position[$centerx];
+        $txt.say: $text, :align<center>; #, :position[$centerx];
 
         $txt.font = $font2, 14;
         #$baseline -= 60;
@@ -81,7 +81,7 @@ sub make-cover-page(PDF::Lite::Page $page,
         for @text -> $text {
             $baseline -= 20;
             $txt.text-position = 0, $baseline; # baseline height is determined here
-            $txt.say: $text, :align<center>, :position[$centerx];
+            $txt.say: $text, :align<center>; #, :position[$centerx];
         }
     }
 }
@@ -89,11 +89,15 @@ sub make-cover-page(PDF::Lite::Page $page,
 sub select-font() {
 }
 
-sub read-config-file($fnam, :$debug --> Config) is export {
+sub read-config-file(
+    $fnam, 
+    :$debug 
+    --> Config
+) is export {
     my $c = Config.new;
 
     my $dir = $fnam.IO.parent;
-    my $in-title    = False;
+    my $in-title   = False;
     my $in-preface = False;
 
     LINE: for $fnam.IO.lines -> $line is copy {

@@ -1,7 +1,7 @@
 # option names must end with a colon as shown below
 # option names are NOT case-sensitive
 
-=outfile spol-pages.pdf
+=ofile spol-pages.pdf
 
 # options for the title page
 # page numbers desired?

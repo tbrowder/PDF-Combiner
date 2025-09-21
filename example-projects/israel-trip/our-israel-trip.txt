@@ -1,7 +1,7 @@
 # option names must end with a colon as shown below
 # option names are NOT case-sensitive
 
-=ofile trip-to-israel.pdf               # case-sensitive
+=ofile trip-to-israel4.pdf               # case-sensitive
 
 # options for the title page
 # page numbers desired?
