@@ -11,7 +11,6 @@ SYNOPSIS
 ```raku
 use PDF::Combiner;
 combine-pdfs config=our-israel-tour.txt
-compress-pdf our-israel-tour.pdf
 ```
 
 Installation requirements

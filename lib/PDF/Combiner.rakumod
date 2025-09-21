@@ -140,17 +140,6 @@ multi sub run-cli(@args) is export {
     # collect data
     $c = read-config-file $ifil, :$debug;
 
-    if $c.simple {
-        my $ofil  = $c.ofile;
-        my @files = $c.pdfs;
-        # combine, output to a file, and report
-        simple-combine @files, :$debug;
-
-        say "Finished a simple combine";
-        say "See output file '$ofile'";
-        exit
-    }
-
     for $c.pdfs -> $pdf-in {
         my $pdf-obj = PDF::Lite.open: $pdf-in;
         @pdf-objs.push: $pdf-obj;
