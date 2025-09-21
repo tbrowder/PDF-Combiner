@@ -6,7 +6,6 @@ use PDF::Font::Loader;
 use PDF::Combiner::Subs;
 use PDF::Combiner::Classes;
 
-=begin comment
 my enum Paper <Letter A4>;
 my $debug   = 0;
 my $left    = 1 * 72; # inches => PS points
@@ -23,7 +22,6 @@ my $width  =  8.5 * 72;
 # for A4
 # $height =; # 11.7 in
 # $width = ; #  8.3 in
-=end comment
 
 multi sub run-cli() is export {
     print qq:to/HERE/;
@@ -358,5 +356,5 @@ multi sub run-cli(@args) is export {
     say "See combined pdf: {$ofile}";
     say "Total pages: $new-pages";
 
-} #multi sub run-cli(@args) is export {
+} # multi sub run-cli(@args) is export {
 #==== end of this file's content ============

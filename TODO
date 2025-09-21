@@ -1,2 +1,4 @@
 Tidy docs
++ Put bulk of bin/* help in its own Help readme
++ back out the Help module
 
